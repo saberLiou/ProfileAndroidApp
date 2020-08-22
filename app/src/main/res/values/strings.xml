@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">saberLiou</string>
-    <string name="tv_home_greeting">Hello World!</string>
+    <string name="mainActivity_tvDeveloperImage_contentDescription">Developer\'s image</string>
+    <string name="mainActivity_tvDeveloperName_text">saberLiou</string>
+    <string name="mainActivity_tvDeveloperMotto_text"><![CDATA[Songs of Life, singing with a Real Soul., &Dreamer]]></string>
 </resources>

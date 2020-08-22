@@ -6,14 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tvHomeGreeting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_home_greeting"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/ivDeveloperImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/mainActivity_tvDeveloperImage_contentDescription"
+            app:srcCompat="@drawable/head_photo" />
+
+        <TextView
+            android:id="@+id/tvDeveloperName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mainActivity_tvDeveloperName_text"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvDeveloperMotto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mainActivity_tvDeveloperMotto_text"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
