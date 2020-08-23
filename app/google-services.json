@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "88319699471",
+    "firebase_url": "https://profileandroidapp.firebaseio.com",
+    "project_id": "profileandroidapp",
+    "storage_bucket": "profileandroidapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88319699471:android:11cb0e4d8b13b1571a117a",
+        "android_client_info": {
+          "package_name": "saberliou.demo.profile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88319699471-vgjot64spj5an8a27pohbe0vfub1806t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBssgMBHUYDLFFJc4DMDVGWRxbzy__Ql7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88319699471-vgjot64spj5an8a27pohbe0vfub1806t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
