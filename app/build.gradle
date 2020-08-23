@@ -41,7 +41,7 @@ android {
             // Firebase App Distribution
             signingConfig signingConfigs.release
             firebaseAppDistribution {
-                releaseNotes="Test Firebase App Distribution from Jenkins."
+                releaseNotes="Test Firebase App Distribution from Jenkins with release branch."
                 testers="saberliou@gmail.com"
             }
         }
