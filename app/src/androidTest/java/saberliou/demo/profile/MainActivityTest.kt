@@ -2,7 +2,7 @@ package saberliou.demo.profile
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -51,7 +51,7 @@ class MainActivityTest {
             )
         )
 
-        onView(withId(R.id.md_input_message)).perform(typeText(updatedName))
+        onView(withId(R.id.md_input_message)).perform(replaceText(updatedName))
         onView(withText(R.string.mainActivity_mdEditDeveloperButton_text)).perform(click())
         onView(withText(R.string.mainActivity_mdEditDeveloperNameTitle_text)).check(doesNotExist())
         onView(withId(R.id.tvDeveloperName)).check(matches(withText(updatedName)))
@@ -71,7 +71,7 @@ class MainActivityTest {
             )
         )
 
-        onView(withId(R.id.md_input_message)).perform(typeText(updatedMotto))
+        onView(withId(R.id.md_input_message)).perform(replaceText(updatedMotto))
         onView(withText(R.string.mainActivity_mdEditDeveloperButton_text)).perform(click())
         onView(withText(R.string.mainActivity_mdEditDeveloperMottoTitle_text)).check(doesNotExist())
         onView(withId(R.id.tvDeveloperMotto)).check(matches(withText(updatedMotto)))
