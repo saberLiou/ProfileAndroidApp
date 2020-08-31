@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 
 object ImageViewDrawableMatcher {
-    fun withDrawable(resourceId: Int): BoundedMatcher<View, ImageView> {
-        return object : BoundedMatcher<View, ImageView>(ImageView::class.java) {
+    fun withDrawable(resourceId: Int): BoundedMatcher<View, ImageView> =
+        object : BoundedMatcher<View, ImageView>(ImageView::class.java) {
             private var resourceName: String? = null
 
             override fun describeTo(description: Description) {
@@ -28,5 +28,4 @@ object ImageViewDrawableMatcher {
                 return actualBitmap.sameAs(expectedBitmap)
             }
         }
-    }
 }
