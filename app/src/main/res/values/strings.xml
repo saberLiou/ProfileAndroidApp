@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">saberLiou</string>
+    <string name="homeFragment_optionsMenu_sharing_text">Sharing</string>
+    <string name="homeFragment_optionsMenu_sharingSuccess_text">Hello World!</string>
     <string name="homeFragment_tvDeveloperImage_contentDescription">Developer\'s image</string>
     <string name="homeFragment_ibtnDeveloperEditName_contentDescription">Edit Developer\'s name</string>
     <string name="homeFragment_ibtnDeveloperEditMotto_contentDescription">Edit Developer\'s motto</string>

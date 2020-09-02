@@ -1,5 +1,6 @@
 package saberliou.demo.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -50,11 +51,35 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
+
+        // Showing the Share Menu Item Dynamically:
+        // check if the activity resolves
+        if (null == getSharingIntent().resolveActivity(requireActivity().packageManager)) {
+            // hide the menu item if it doesn't resolve
+            menu.findItem(R.id.sharing)?.isVisible = false
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.sharing -> startActivity(getSharingIntent())
+            else -> return NavigationUI.onNavDestinationSelected(
+                item,
+                requireView().findNavController()
+            )
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun getSharingIntent(): Intent {
+        return Intent(Intent.ACTION_SEND).apply {
+            setType("text/plain")
+                .putExtra(
+                    Intent.EXTRA_TEXT,
+                    getString(R.string.homeFragment_optionsMenu_sharingSuccess_text)
+                )
+        }
     }
 
     private fun launchMaterialDialog(titleTextResourceId: Int) {

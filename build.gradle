@@ -1,6 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.0"
+    ext {
+        kotlin_version = "1.4.0"
+        navigation_component_version = "2.3.0"
+    }
     repositories {
         google()
         jcenter()
@@ -12,6 +15,9 @@ buildscript {
         // Firebase App Distribution
         classpath "com.google.gms:google-services:4.3.3"
         classpath "com.google.firebase:firebase-appdistribution-gradle:2.0.1"
+
+        // Safe Args for Navigation Component
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation_component_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
