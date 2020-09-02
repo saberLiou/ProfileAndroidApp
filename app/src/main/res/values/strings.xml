@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">saberLiou</string>
-    <string name="mainActivity_tvDeveloperImage_contentDescription">Developer\'s image</string>
-    <string name="mainActivity_ibtnDeveloperEditName_contentDescription">Edit Developer\'s name</string>
-    <string name="mainActivity_ibtnDeveloperEditMotto_contentDescription">Edit Developer\'s motto</string>
-    <string name="mainActivity_mdEditDeveloperNameTitle_text">Enter your name:</string>
-    <string name="mainActivity_mdEditDeveloperMottoTitle_text">Enter your motto:</string>
-    <string name="mainActivity_mdEditDeveloperButton_text">Update</string>
+    <string name="homeFragment_tvDeveloperImage_contentDescription">Developer\'s image</string>
+    <string name="homeFragment_ibtnDeveloperEditName_contentDescription">Edit Developer\'s name</string>
+    <string name="homeFragment_ibtnDeveloperEditMotto_contentDescription">Edit Developer\'s motto</string>
+    <string name="homeFragment_mdEditDeveloperNameTitle_text">Enter your name:</string>
+    <string name="homeFragment_mdEditDeveloperMottoTitle_text">Enter your motto:</string>
+    <string name="homeFragment_mdEditDeveloperButton_text">Update</string>
+    <string name="settingsFragment_actionBarTitle_text">Settings</string>
+    <string name="settingsFragment_placeholder_text">Settings Page is under construction…</string>
 </resources>

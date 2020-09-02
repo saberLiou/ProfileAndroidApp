@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".HomeFragment">
+
+    <data>
+        <variable
+            name="developer"
+            type="saberliou.demo.profile.Developer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/ivDeveloperImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/homeFragment_tvDeveloperImage_contentDescription"
+                app:layout_constraintBottom_toTopOf="@+id/tvDeveloperName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/head_photo" />
+
+            <TextView
+                android:id="@+id/tvDeveloperName"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="36dp"
+                android:gravity="center"
+                android:text="@={developer.name}"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvDeveloperMotto"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDeveloperEditName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivDeveloperImage" />
+
+            <TextView
+                android:id="@+id/tvDeveloperMotto"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="36dp"
+                android:gravity="center"
+                android:text="@={developer.motto}"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibtnDeveloperEditMotto"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDeveloperName" />
+
+            <ImageButton
+                android:id="@+id/ibtnDeveloperEditName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/homeFragment_ibtnDeveloperEditName_contentDescription"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDeveloperName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvDeveloperName"
+                app:layout_constraintTop_toTopOf="@+id/tvDeveloperName"
+                app:srcCompat="@drawable/edit" />
+
+            <ImageButton
+                android:id="@+id/ibtnDeveloperEditMotto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/homeFragment_ibtnDeveloperEditMotto_contentDescription"
+                app:layout_constraintBottom_toBottomOf="@id/tvDeveloperMotto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvDeveloperMotto"
+                app:layout_constraintTop_toTopOf="@+id/tvDeveloperMotto"
+                app:srcCompat="@drawable/edit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
