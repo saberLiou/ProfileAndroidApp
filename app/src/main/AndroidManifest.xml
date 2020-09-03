@@ -3,6 +3,7 @@
     package="saberliou.demo.profile">
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/app_icon"

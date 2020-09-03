@@ -89,6 +89,9 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$androidx_fragment_version"
     debugImplementation "androidx.fragment:fragment-testing:$androidx_fragment_version"
 
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
     // JUnit
     testImplementation 'junit:junit:4.13'
 
