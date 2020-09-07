@@ -1,5 +1,6 @@
 package saberliou.demo.profile
 
+import android.content.pm.ActivityInfo
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -118,6 +119,38 @@ class HomeFragmentTest {
             )
         ).inRoot(ToastMatcher.withToast())
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun holdDataOnViewAfterRotation() {
+        val updatedName = "Guo-Xun Liu"
+        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditName))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
+            .perform(ViewActions.replaceText(updatedName))
+        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
+            .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
+
+        val updatedMotto = "No codes, no life."
+        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditMotto))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
+            .perform(ViewActions.replaceText(updatedMotto))
+        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
+            .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
+
+        mainActivityTestResult.activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
+            .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
+        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
+            .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
+
+        mainActivityTestResult.activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     @After

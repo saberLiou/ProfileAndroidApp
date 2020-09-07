@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import saberliou.demo.profile.databinding.FragmentHomeBinding
+import saberliou.demo.profile.viewmodels.HomeViewModel
 import java.util.*
 
 /**
@@ -19,7 +21,7 @@ import java.util.*
  */
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val developer = Developer()
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +36,11 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         setHasOptionsMenu(true)
 
-        binding.developer = developer
+        binding.developer = viewModel.getDeveloper()
         binding.ibtnDeveloperEditName.setOnClickListener {
             launchMaterialDialog(R.string.homeFragment_mdEditDeveloperNameTitle_text)
         }
@@ -89,11 +92,11 @@ class HomeFragment : Fragment() {
                     val valueStr = value.toString()
                     val message = when (titleTextResourceId) {
                         R.string.homeFragment_mdEditDeveloperNameTitle_text -> {
-                            developer.name = valueStr
+                            viewModel.updateDeveloperName(valueStr)
                             makeToastString(UpdateTypes.NAME.getType(), valueStr)
                         }
                         R.string.homeFragment_mdEditDeveloperMottoTitle_text -> {
-                            developer.motto = valueStr
+                            viewModel.updateDeveloperMotto(valueStr)
                             makeToastString(UpdateTypes.MOTTO.getType(), valueStr)
                         }
                         else -> ""
