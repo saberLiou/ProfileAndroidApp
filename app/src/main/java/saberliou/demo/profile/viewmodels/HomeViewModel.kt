@@ -1,18 +1,25 @@
 package saberliou.demo.profile.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import saberliou.demo.profile.Developer
 
 class HomeViewModel : ViewModel() {
-    private val developer = Developer()
+    // Use backing property with read-only LiveData for external and MutableLiveData for internal mutations.
+    private val _developer = MutableLiveData<Developer>()
+    val developer: LiveData<Developer>
+        get() = _developer
 
-    fun getDeveloper() = developer
+    init {
+        _developer.value = Developer()
+    }
 
     fun updateDeveloperName(name: String) {
-        developer.name = name
+        _developer.value?.name = name
     }
 
     fun updateDeveloperMotto(motto: String) {
-        developer.motto = motto
+        _developer.value?.motto = motto
     }
 }

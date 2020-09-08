@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        binding.developer = viewModel.getDeveloper()
+        binding.developer = viewModel.developer.value
         binding.ibtnDeveloperEditName.setOnClickListener {
             launchMaterialDialog(R.string.homeFragment_mdEditDeveloperNameTitle_text)
         }
