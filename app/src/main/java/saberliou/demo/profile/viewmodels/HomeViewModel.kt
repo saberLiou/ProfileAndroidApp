@@ -7,19 +7,26 @@ import saberliou.demo.profile.Developer
 
 class HomeViewModel : ViewModel() {
     // Use backing property with read-only LiveData for external and MutableLiveData for internal mutations.
-    private val _developer = MutableLiveData<Developer>()
-    val developer: LiveData<Developer>
-        get() = _developer
+    private val _name = MutableLiveData<String>()
+    val name: LiveData<String>
+        get() = _name
+
+    private val _motto = MutableLiveData<String>()
+    val motto: LiveData<String>
+        get() = _motto
 
     init {
-        _developer.value = Developer()
+        Developer().also {
+            _name.value = it.name
+            _motto.value = it.motto
+        }
     }
 
     fun updateDeveloperName(name: String) {
-        _developer.value?.name = name
+        _name.value = name
     }
 
     fun updateDeveloperMotto(motto: String) {
-        _developer.value?.motto = motto
+        _motto.value = motto
     }
 }

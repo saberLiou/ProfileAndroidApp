@@ -36,11 +36,13 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         setHasOptionsMenu(true)
 
-        binding.developer = viewModel.developer.value
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         binding.ibtnDeveloperEditName.setOnClickListener {
             launchMaterialDialog(R.string.homeFragment_mdEditDeveloperNameTitle_text)
         }
@@ -101,7 +103,6 @@ class HomeFragment : Fragment() {
                         }
                         else -> ""
                     }
-                    binding.invalidateAll() // Refresh the UI with the value in the updated binding object.
                     when (val activity = activity) {
                         is MainActivity -> activity.showToast(message)
                     }
