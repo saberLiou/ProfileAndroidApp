@@ -1,10 +1,11 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import saberliou.demo.profile.R
 
 /**
  * A simple [Fragment] subclass.

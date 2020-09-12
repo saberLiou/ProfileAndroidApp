@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
+import saberliou.demo.profile.MainActivity
+import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentHomeBinding
-import saberliou.demo.profile.viewmodels.HomeViewModel
 import java.util.*
 
 /**

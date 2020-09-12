@@ -1,4 +1,4 @@
-package saberliou.demo.profile.viewmodels
+package saberliou.demo.profile.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">saberLiou</string>
+    <string name="pageUnderConstruction_text">This page is under construction…</string>
+
     <string name="homeFragment_optionsMenu_sharing_text">Sharing</string>
     <string name="homeFragment_optionsMenu_sharingSuccess_text">Hello World!</string>
     <string name="homeFragment_tvDeveloperImage_contentDescription">Developer\'s image</string>
@@ -8,6 +10,8 @@
     <string name="homeFragment_mdEditDeveloperNameTitle_text">Enter your name:</string>
     <string name="homeFragment_mdEditDeveloperMottoTitle_text">Enter your motto:</string>
     <string name="homeFragment_mdEditDeveloperButton_text">Update</string>
+
     <string name="settingsFragment_actionBarTitle_text">Settings</string>
-    <string name="settingsFragment_placeholder_text">Settings Page is under construction…</string>
+
+    <string name="sleepQualityFragment_actionBarTitle_text">Sleep Quality Tracker</string>
 </resources>

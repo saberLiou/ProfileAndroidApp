@@ -2,19 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigations"
+    android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="saberliou.demo.profile.HomeFragment"
+        android:name="saberliou.demo.profile.home.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="saberliou.demo.profile.SettingsFragment"
+        android:name="saberliou.demo.profile.settings.SettingsFragment"
         android:label="@string/settingsFragment_actionBarTitle_text"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/sleepQualityTrackerFragment"
+        android:name="saberliou.demo.profile.sleepqualitytracker.SleepQualityTrackerFragment"
+        android:label="@string/sleepQualityFragment_actionBarTitle_text"
+        tools:layout="@layout/fragment_sleep_quality_tracker" />
 
 </navigation>

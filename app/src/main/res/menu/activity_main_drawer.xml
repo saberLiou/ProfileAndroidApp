@@ -6,4 +6,9 @@
         android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/settingsFragment_actionBarTitle_text" />
 
+    <item
+        android:id="@+id/sleepQualityTrackerFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/sleepQualityFragment_actionBarTitle_text" />
+
 </menu>
