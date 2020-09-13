@@ -18,9 +18,9 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/sleepQualityTrackerFragment"
-        android:name="saberliou.demo.profile.sleepqualitytracker.SleepQualityTrackerFragment"
-        android:label="@string/sleepQualityFragment_actionBarTitle_text"
-        tools:layout="@layout/fragment_sleep_quality_tracker" />
+        android:id="@+id/sleepNightsFragment"
+        android:name="saberliou.demo.profile.sleepqualitytracker.SleepNightsFragment"
+        android:label="@string/sleepNightsFragment_actionBarTitle_text"
+        tools:layout="@layout/fragment_sleep_nights" />
 
 </navigation>

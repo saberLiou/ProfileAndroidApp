@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.home
 
 data class Developer(
     var name: String = "saberLiou",

@@ -7,8 +7,8 @@
         android:title="@string/settingsFragment_actionBarTitle_text" />
 
     <item
-        android:id="@+id/sleepQualityTrackerFragment"
+        android:id="@+id/sleepNightsFragment"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/sleepQualityFragment_actionBarTitle_text" />
+        android:title="@string/sleepNightsFragment_actionBarTitle_text" />
 
 </menu>

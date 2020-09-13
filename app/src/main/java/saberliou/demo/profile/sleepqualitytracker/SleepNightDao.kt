@@ -24,5 +24,5 @@ interface SleepNightDao {
     fun update(night: SleepNight)
 
     @Query("DELETE FROM ${SleepNight.tableName}")
-    fun clear()
+    fun deleteAllNights()
 }

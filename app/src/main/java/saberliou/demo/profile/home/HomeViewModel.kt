@@ -3,7 +3,6 @@ package saberliou.demo.profile.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import saberliou.demo.profile.Developer
 
 class HomeViewModel : ViewModel() {
     // Use backing property with read-only LiveData for external and MutableLiveData for internal mutations.

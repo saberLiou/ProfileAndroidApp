@@ -9,10 +9,10 @@ import saberliou.demo.profile.R
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SleepQualityTrackerFragment.newInstance] factory method to
+ * Use the [SaveSleepNightFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SleepQualityTrackerFragment : Fragment() {
+class SaveSleepNightFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class SleepQualityTrackerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sleep_quality_tracker, container, false)
+        return inflater.inflate(R.layout.fragment_save_sleep_night, container, false)
     }
 
     companion object {
@@ -34,11 +34,11 @@ class SleepQualityTrackerFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment SleepQualityTrackerFragment.
+         * @return A new instance of fragment SaveSleepNightFragment.
          */
         @JvmStatic
         fun newInstance() =
-            SleepQualityTrackerFragment().apply {
+            SaveSleepNightFragment().apply {
                 arguments = Bundle().apply {
 
                 }

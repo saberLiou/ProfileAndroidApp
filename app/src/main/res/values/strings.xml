@@ -13,5 +13,5 @@
 
     <string name="settingsFragment_actionBarTitle_text">Settings</string>
 
-    <string name="sleepQualityFragment_actionBarTitle_text">Sleep Quality Tracker</string>
+    <string name="sleepNightsFragment_actionBarTitle_text">Sleep Quality Tracker</string>
 </resources>
