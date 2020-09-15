@@ -45,10 +45,10 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.ibtnDeveloperEditName.setOnClickListener {
-            launchMaterialDialog(R.string.homeFragment_mdEditDeveloperNameTitle_text)
+            launchMaterialDialog(R.string.mdEditDeveloperNameTitle_text)
         }
         binding.ibtnDeveloperEditMotto.setOnClickListener {
-            launchMaterialDialog(R.string.homeFragment_mdEditDeveloperMottoTitle_text)
+            launchMaterialDialog(R.string.mdEditDeveloperMottoTitle_text)
         }
 
         return binding.root
@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
             setType("text/plain")
                 .putExtra(
                     Intent.EXTRA_TEXT,
-                    getString(R.string.homeFragment_optionsMenu_sharingSuccess_text)
+                    getString(R.string.optionsMenu_sharingSuccess_text)
                 )
         }
     }
@@ -94,11 +94,11 @@ class HomeFragment : Fragment() {
                 input(waitForPositiveButton = true, allowEmpty = false) { _, value ->
                     val valueStr = value.toString()
                     val message = when (titleTextResourceId) {
-                        R.string.homeFragment_mdEditDeveloperNameTitle_text -> {
+                        R.string.mdEditDeveloperNameTitle_text -> {
                             viewModel.updateDeveloperName(valueStr)
                             makeToastString(UpdateTypes.NAME.getType(), valueStr)
                         }
-                        R.string.homeFragment_mdEditDeveloperMottoTitle_text -> {
+                        R.string.mdEditDeveloperMottoTitle_text -> {
                             viewModel.updateDeveloperMotto(valueStr)
                             makeToastString(UpdateTypes.MOTTO.getType(), valueStr)
                         }
@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 title(titleTextResourceId)
-                positiveButton(R.string.homeFragment_mdEditDeveloperButton_text)
+                positiveButton(R.string.mdEditDeveloperButton_text)
             }
         }
     }

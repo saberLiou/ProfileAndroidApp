@@ -46,16 +46,16 @@ class HomeFragmentTest {
         val updatedName = "Guo-Xun Liu"
         Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditName))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperNameTitle_text)).check(
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text)).check(
             ViewAssertions.matches(
                 ViewMatchers.isDisplayed()
             )
         )
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperNameTitle_text)).check(
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text)).check(
             ViewAssertions.matches(
                 ViewMatchers.isDisplayed()
             )
@@ -63,9 +63,9 @@ class HomeFragmentTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.click(), ViewActions.replaceText(updatedName))
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperNameTitle_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text))
             .check(ViewAssertions.doesNotExist())
         Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
             .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
@@ -86,7 +86,7 @@ class HomeFragmentTest {
         val updatedMotto = "No codes, no life."
         Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditMotto))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperMottoTitle_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
             .check(
                 ViewAssertions.matches(
                     ViewMatchers.isDisplayed()
@@ -94,9 +94,9 @@ class HomeFragmentTest {
         )
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperMottoTitle_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
             .check(
                 ViewAssertions.matches(
                     ViewMatchers.isDisplayed()
@@ -105,9 +105,9 @@ class HomeFragmentTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.replaceText(updatedMotto))
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperMottoTitle_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
             .check(ViewAssertions.doesNotExist())
         Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
             .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
@@ -130,7 +130,7 @@ class HomeFragmentTest {
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.replaceText(updatedName))
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
             .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
@@ -140,7 +140,7 @@ class HomeFragmentTest {
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
             .perform(ViewActions.replaceText(updatedMotto))
-        Espresso.onView(ViewMatchers.withText(R.string.homeFragment_mdEditDeveloperButton_text))
+        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
             .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))

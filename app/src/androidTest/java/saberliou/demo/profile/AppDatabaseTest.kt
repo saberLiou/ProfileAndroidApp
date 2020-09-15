@@ -3,6 +3,7 @@ package saberliou.demo.profile
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -31,10 +32,10 @@ class AppDatabaseTest {
 
     @Test
     @Throws(IOException::class)
-    fun createAndGetTheNight() {
+    fun createAndGetTheNight() = runBlocking {
         val expectedNight = SleepNight()
         sleepNightDao.insert(expectedNight)
-        val actualNight = sleepNightDao.getNight(1)
+        val actualNight = sleepNightDao.get(1)
         Assert.assertTrue(actualNight == expectedNight)
     }
 

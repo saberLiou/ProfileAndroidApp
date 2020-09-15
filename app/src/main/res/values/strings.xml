@@ -2,16 +2,38 @@
     <string name="app_name">saberLiou</string>
     <string name="pageUnderConstruction_text">This page is under construction…</string>
 
-    <string name="homeFragment_optionsMenu_sharing_text">Sharing</string>
-    <string name="homeFragment_optionsMenu_sharingSuccess_text">Hello World!</string>
-    <string name="homeFragment_tvDeveloperImage_contentDescription">Developer\'s image</string>
-    <string name="homeFragment_ibtnDeveloperEditName_contentDescription">Edit Developer\'s name</string>
-    <string name="homeFragment_ibtnDeveloperEditMotto_contentDescription">Edit Developer\'s motto</string>
-    <string name="homeFragment_mdEditDeveloperNameTitle_text">Enter your name:</string>
-    <string name="homeFragment_mdEditDeveloperMottoTitle_text">Enter your motto:</string>
-    <string name="homeFragment_mdEditDeveloperButton_text">Update</string>
+    <!-- HomeFragment -->
+    <string name="optionsMenu_sharing_text">Sharing</string>
+    <string name="optionsMenu_sharingSuccess_text">Hello World!</string>
+    <string name="tvDeveloperImage_contentDescription">Developer\'s image</string>
+    <string name="ibtnDeveloperEditName_contentDescription">Edit Developer\'s name</string>
+    <string name="ibtnDeveloperEditMotto_contentDescription">Edit Developer\'s motto</string>
+    <string name="mdEditDeveloperNameTitle_text">Enter your name:</string>
+    <string name="mdEditDeveloperMottoTitle_text">Enter your motto:</string>
+    <string name="mdEditDeveloperButton_text">Update</string>
 
+    <!-- SettingsFragment -->
     <string name="settingsFragment_actionBarTitle_text">Settings</string>
+    <string name="btnStartTracking_text">Start</string>
+    <string name="btnStopTracking_text">Stop</string>
+    <string name="btnClearSleepNights_text">Clear</string>
 
+    <!-- SleepNightsFragment -->
     <string name="sleepNightsFragment_actionBarTitle_text">Sleep Quality Tracker</string>
+
+    <!-- Output to TextView styled with a little HTML -->
+    <string name="title"><![CDATA[<h3>HERE IS YOUR SLEEP DATA</h3>]]></string>
+    <string name="start_time"><![CDATA[<b>Start:</b>]]></string>
+    <string name="end_time"><![CDATA[<b>End:</b>]]></string>
+    <string name="quality"><![CDATA[<b>Quality:</b>]]></string>
+    <string name="hours_slept"><![CDATA[<b>Hours:Minutes:Seconds</b>]]></string>
+
+    <!-- Sleep quality strings. -->
+    <string name="zero_very_bad">Very bad</string>
+    <string name="one_poor">Poor</string>
+    <string name="two_soso">So-so</string>
+    <string name="three_ok">OK</string>
+    <string name="four_pretty_good">Pretty good</string>
+    <string name="five_excellent">Excellent!</string>
+
 </resources>
