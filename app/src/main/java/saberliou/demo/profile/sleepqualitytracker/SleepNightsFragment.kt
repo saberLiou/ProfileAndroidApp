@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import saberliou.demo.profile.AppDatabase
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentSleepNightsBinding
@@ -44,6 +45,14 @@ class SleepNightsFragment : Fragment() {
         ).get(SleepNightsViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        viewModel.navigateToSaveSleepNight.observe(viewLifecycleOwner, { night ->
+            night?.let {
+                findNavController().navigate(SleepNightsFragmentDirections.actionSleepNightsFragmentToSaveSleepNightFragment((night.nightId)))
+
+                viewModel.onSaveSleepNightNavigationDone()
+            }
+        })
 
         return binding.root
     }

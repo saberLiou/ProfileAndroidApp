@@ -1,10 +1,7 @@
 package saberliou.demo.profile.sleepqualitytracker
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
 class SleepNightsViewModel(
@@ -15,6 +12,40 @@ class SleepNightsViewModel(
     private val nights = sleepNightDao.getAll()
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
+    }
+
+    val isBtnStartTrackingClickable = Transformations.map(tonight) {
+        it == null
+    }
+
+    val isBtnStopTrackingClickable = Transformations.map(tonight) {
+        it != null
+    }
+
+    val isBtnClearSleepNightsClickable = Transformations.map(nights) {
+        it?.isNotEmpty()
+    }
+
+    /**
+     * Variable that tells the Fragment to navigate to a specific [SaveSleepNightFragment]
+     *
+     * This is private because we don't want to expose setting this value to the Fragment.
+     */
+    private val _navigateToSaveSleepNight = MutableLiveData<SleepNight>()
+
+    /**
+     * If this is non-null, immediately navigate to [SaveSleepNightFragment] and call [onSaveSleepNightNavigationDone]
+     */
+    val navigateToSaveSleepNight: LiveData<SleepNight>
+        get() = _navigateToSaveSleepNight
+
+    /**
+     * Call this immediately after navigating to [SaveSleepNightFragment]
+     *
+     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
+     */
+    fun onSaveSleepNightNavigationDone() {
+        _navigateToSaveSleepNight.value = null
     }
 
     init {
@@ -35,6 +66,9 @@ class SleepNightsViewModel(
             val currentNight = tonight.value ?: return@launch
             currentNight.endTime = System.currentTimeMillis()
             sleepNightDao.update(currentNight)
+
+            // Set state to navigate to the SaveSleepNightFragment.
+            _navigateToSaveSleepNight.value = currentNight
         }
     }
 

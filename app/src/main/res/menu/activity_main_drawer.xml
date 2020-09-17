@@ -4,11 +4,11 @@
     <item
         android:id="@+id/settingsFragment"
         android:icon="@android:drawable/ic_menu_manage"
-        android:title="@string/settingsFragment_actionBarTitle_text" />
+        android:title="@string/settings_actionBarTitle_text" />
 
     <item
         android:id="@+id/sleepNightsFragment"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:title="@string/sleepNightsFragment_actionBarTitle_text" />
+        android:title="@string/sleepQualityTracker_actionBarTitle_text" />
 
 </menu>
