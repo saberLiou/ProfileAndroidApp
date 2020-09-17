@@ -42,11 +42,13 @@ class SaveSleepNightFragment : Fragment() {
         ).get(SaveSleepNightViewModel::class.java)
 
         binding.viewModel = viewModel
-        viewModel.navigateToSleepNights.observe(viewLifecycleOwner, { navigating ->
-            if (navigating == true) {
-                findNavController().navigate(SaveSleepNightFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
+        viewModel.navigateToSleepNights.observe(viewLifecycleOwner, { toNavigate ->
+            when (toNavigate) {
+                true -> {
+                    findNavController().navigate(SaveSleepNightFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
 
-                viewModel.onSleepNightsNavigationDone()
+                    viewModel.onSleepNightsNavigationDone()
+                }
             }
         })
 

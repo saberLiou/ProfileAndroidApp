@@ -23,6 +23,9 @@
     <string name="btnStopTracking_text">Stop</string>
     <string name="btnClearSleepNights_text">Clear</string>
 
+    <!-- Toast to play after Clear button has been pressed -->
+    <string name="cleared_message">All your data is gone forever.</string>
+
     <!-- Output to TextView styled with a little HTML -->
     <string name="title"><![CDATA[<h3>HERE IS YOUR SLEEP DATA</h3>]]></string>
     <string name="start_time"><![CDATA[<b>Start:</b>]]></string>

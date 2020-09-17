@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import saberliou.demo.profile.AppDatabase
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentSleepNightsBinding
@@ -51,6 +52,20 @@ class SleepNightsFragment : Fragment() {
                 findNavController().navigate(SleepNightsFragmentDirections.actionSleepNightsFragmentToSaveSleepNightFragment((night.nightId)))
 
                 viewModel.onSaveSleepNightNavigationDone()
+            }
+        })
+
+        viewModel.showSnackbar.observe(viewLifecycleOwner, { toShow ->
+            when (toShow) {
+                true -> {
+                    Snackbar.make(
+                        requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.cleared_message),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+
+                    viewModel.onSnackbarShown()
+                }
             }
         })
 

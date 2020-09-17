@@ -40,12 +40,34 @@ class SleepNightsViewModel(
         get() = _navigateToSaveSleepNight
 
     /**
+     * Variable that tells the Fragment to show a SnackBar.
+     *
+     * This is private because we don't want to expose setting this value to the Fragment.
+     */
+    private var _showSnackbar = MutableLiveData<Boolean>()
+
+    /**
+     * If this is true, immediately show a Snackbar and call `doneShowingSnackbar()`.
+     */
+    val showSnackbar: LiveData<Boolean>
+        get() = _showSnackbar
+
+    /**
      * Call this immediately after navigating to [SaveSleepNightFragment]
      *
      * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
      */
     fun onSaveSleepNightNavigationDone() {
         _navigateToSaveSleepNight.value = null
+    }
+
+    /**
+     * Call this immediately after showing a Snackbar.
+     *
+     * It will clear the showing request, so if the user rotates their phone it won't show a duplicate Snackbar.
+     */
+    fun onSnackbarShown() {
+        _showSnackbar.value = false
     }
 
     init {
@@ -76,6 +98,9 @@ class SleepNightsViewModel(
         viewModelScope.launch {
             sleepNightDao.deleteAll()
             tonight.value = null
+
+            // Set state to true to show a Snackbar.
+            _showSnackbar.value = true
         }
     }
 
