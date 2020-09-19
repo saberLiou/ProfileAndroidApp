@@ -9,10 +9,10 @@ class SleepNightsViewModel(
     private val sleepNightDao: SleepNightDao,
 ) : AndroidViewModel(application) {
     private var tonight = MutableLiveData<SleepNight?>()
-    private val nights = sleepNightDao.getAll()
-    val nightsString = Transformations.map(nights) { nights ->
-        formatNights(nights, application.resources)
-    }
+    val nights = sleepNightDao.getAll()
+//    val nightsString = Transformations.map(nights) { nights ->
+//        formatNights(nights, application.resources)
+//    }
 
     val isBtnStartTrackingClickable = Transformations.map(tonight) {
         it == null

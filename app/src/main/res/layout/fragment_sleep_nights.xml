@@ -15,25 +15,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
+        <!--        <ScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/btnClearSleepNights"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnStopTracking">-->
+
+        <!--            <TextView-->
+        <!--                android:id="@+id/tvSleepNights"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginStart="@dimen/margin"-->
+        <!--                android:layout_marginTop="@dimen/margin"-->
+        <!--                android:layout_marginEnd="@dimen/margin"-->
+        <!--                android:text="@{viewModel.nightsString}" />-->
+
+        <!--        </ScrollView>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSleepNights"
+            android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/btnClearSleepNights"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnStopTracking">
-
-            <TextView
-                android:id="@+id/tvSleepNights"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:text="@{viewModel.nightsString}" />
-
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/btnStopTracking" />
 
         <Button
             android:id="@+id/btnStartTracking"

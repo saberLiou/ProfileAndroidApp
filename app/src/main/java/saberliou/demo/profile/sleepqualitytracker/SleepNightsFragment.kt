@@ -45,6 +45,16 @@ class SleepNightsFragment : Fragment() {
             )
         ).get(SleepNightsViewModel::class.java)
         binding.viewModel = viewModel
+
+        val sleepNightAdapter = SleepNightAdapter()
+        binding.rvSleepNights.adapter = sleepNightAdapter
+
+        viewModel.nights.observe(viewLifecycleOwner, { nights ->
+            nights?.let {
+                sleepNightAdapter.nights = nights
+            }
+        })
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.navigateToSaveSleepNight.observe(viewLifecycleOwner, { night ->

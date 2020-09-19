@@ -22,6 +22,7 @@
     <string name="btnStartTracking_text">Start</string>
     <string name="btnStopTracking_text">Stop</string>
     <string name="btnClearSleepNights_text">Clear</string>
+    <string name="ivSleepNightQualityImage_contentDescription">a sleep night quality</string>
 
     <!-- Toast to play after Clear button has been pressed -->
     <string name="cleared_message">All your data is gone forever.</string>
@@ -33,6 +34,14 @@
     <string name="quality"><![CDATA[<b>Quality:</b>]]></string>
     <string name="hours_slept"><![CDATA[<b>Hours:Minutes:Seconds</b>]]></string>
 
+    <!-- contentDescription strings for quality icons -->
+    <string name="quality_0">Sleep Quality 0</string>
+    <string name="quality_1">Sleep Quality 1</string>
+    <string name="quality_2">Sleep Quality 2</string>
+    <string name="quality_3">Sleep Quality 3</string>
+    <string name="quality_4">Sleep Quality 4</string>
+    <string name="quality_5">Sleep Quality 5</string>
+
     <!-- Sleep quality strings. -->
     <string name="how_was_hour_sleep">How was your sleep?</string>
     <string name="zero_very_bad">Very bad</string>
@@ -42,12 +51,8 @@
     <string name="four_pretty_good">Pretty good</string>
     <string name="five_excellent">Excellent!</string>
 
-    <!-- contentDescription strings for quality icons -->
-    <string name="quality_0">Sleep Quality 0</string>
-    <string name="quality_1">Sleep Quality 1</string>
-    <string name="quality_2">Sleep Quality 2</string>
-    <string name="quality_3">Sleep Quality 3</string>
-    <string name="quality_4">Sleep Quality 4</string>
-    <string name="quality_5">Sleep Quality 5</string>
+    <string name="minutes_length">%d minutes on %s</string>
+    <string name="hours_length">%d hours on %s</string>
+    <string name="seconds_length">%d seconds on %s</string>
 
 </resources>
