@@ -1,10 +1,14 @@
 package saberliou.demo.profile
 
 import android.content.pm.ActivityInfo
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
+import android.view.Gravity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.DrawerActions.open
+import androidx.test.espresso.contrib.DrawerMatchers.isClosed
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -25,134 +29,99 @@ class HomeFragmentTest {
     @Test
     fun activateFragment() {
         val developer = Developer()
-        Espresso.onView(ViewMatchers.withId(R.id.ivDeveloperImage))
-            .check(ViewAssertions.matches(ImageViewDrawableMatcher.withDrawable(R.drawable.head_photo)))
+        onView(withId(R.id.ivDeveloperImage)).check(matches(ImageViewDrawableMatcher.withDrawable(R.drawable.head_photo)))
 
         // Developer's name
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
-            .check(ViewAssertions.matches(ViewMatchers.withText(developer.name)))
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditName))
-            .check(ViewAssertions.matches(ImageViewDrawableMatcher.withDrawable(R.drawable.edit)))
+        onView(withId(R.id.tvDeveloperName)).check(matches(withText(developer.name)))
+        onView(withId(R.id.ibtnDeveloperEditName)).check(matches(ImageViewDrawableMatcher.withDrawable(R.drawable.edit)))
 
         // Developer's motto
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
-            .check(ViewAssertions.matches(ViewMatchers.withText(developer.motto)))
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditMotto))
-            .check(ViewAssertions.matches(ImageViewDrawableMatcher.withDrawable(R.drawable.edit)))
+        onView(withId(R.id.tvDeveloperMotto)).check(matches(withText(developer.motto)))
+        onView(withId(R.id.ibtnDeveloperEditMotto)).check(matches(ImageViewDrawableMatcher.withDrawable(R.drawable.edit)))
     }
 
     @Test
     fun updateDeveloperName() {
         val updatedName = "Guo-Xun Liu"
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditName))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text)).check(
-            ViewAssertions.matches(
-                ViewMatchers.isDisplayed()
-            )
-        )
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text)).check(
-            ViewAssertions.matches(
-                ViewMatchers.isDisplayed()
-            )
-        )
+        onView(withId(R.id.ibtnDeveloperEditName)).perform(click())
+        onView(withText(R.string.mdEditDeveloperNameTitle_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.md_input_message)).perform(closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withText(R.string.mdEditDeveloperNameTitle_text)).check(matches(isDisplayed()))
 
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.click(), ViewActions.replaceText(updatedName))
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperNameTitle_text))
-            .check(ViewAssertions.doesNotExist())
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
+        onView(withId(R.id.md_input_message)).perform(click(), replaceText(updatedName))
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withText(R.string.mdEditDeveloperNameTitle_text)).check(doesNotExist())
+        onView(withId(R.id.tvDeveloperName)).check(matches(withText(updatedName)))
 
-        Espresso.onView(
-            ViewMatchers.withText(
+        onView(
+            withText(
                 HomeFragment.makeToastString(
                     HomeFragment.Companion.UpdateTypes.NAME.getType(),
                     updatedName
                 )
             )
-        ).inRoot(ToastMatcher.withToast())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        ).inRoot(ToastMatcher.withToast()).check(matches(isDisplayed()))
     }
 
     @Test
     fun updateDeveloperMotto() {
         val updatedMotto = "No codes, no life."
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditMotto))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
-            .check(
-                ViewAssertions.matches(
-                    ViewMatchers.isDisplayed()
-                )
-        )
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
-            .check(
-                ViewAssertions.matches(
-                    ViewMatchers.isDisplayed()
-                )
-        )
+        onView(withId(R.id.ibtnDeveloperEditMotto)).perform(click())
+        onView(withText(R.string.mdEditDeveloperMottoTitle_text)).check(matches(isDisplayed()))
+        onView(withId(R.id.md_input_message)).perform(closeSoftKeyboard())  // To prevent zh soft keyboard influence the positive button of Material Dialogs.
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withText(R.string.mdEditDeveloperMottoTitle_text)).check(matches(isDisplayed()))
 
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.replaceText(updatedMotto))
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperMottoTitle_text))
-            .check(ViewAssertions.doesNotExist())
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
+        onView(withId(R.id.md_input_message)).perform(replaceText(updatedMotto))
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withText(R.string.mdEditDeveloperMottoTitle_text)).check(doesNotExist())
+        onView(withId(R.id.tvDeveloperMotto)).check(matches(withText(updatedMotto)))
 
-        Espresso.onView(
-            ViewMatchers.withText(
+        onView(
+            withText(
                 HomeFragment.makeToastString(
                     HomeFragment.Companion.UpdateTypes.MOTTO.getType(),
                     updatedMotto
                 )
             )
-        ).inRoot(ToastMatcher.withToast())
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        ).inRoot(ToastMatcher.withToast()).check(matches(isDisplayed()))
     }
 
     @Test
     fun holdDataOnViewAfterRotation() {
         val updatedName = "Guo-Xun Liu"
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditName))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.replaceText(updatedName))
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
+        onView(withId(R.id.ibtnDeveloperEditName)).perform(click())
+        onView(withId(R.id.md_input_message)).perform(replaceText(updatedName))
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withId(R.id.tvDeveloperName)).check(matches(withText(updatedName)))
 
         val updatedMotto = "No codes, no life."
-        Espresso.onView(ViewMatchers.withId(R.id.ibtnDeveloperEditMotto))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.md_input_message))
-            .perform(ViewActions.replaceText(updatedMotto))
-        Espresso.onView(ViewMatchers.withText(R.string.mdEditDeveloperButton_text))
-            .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
+        onView(withId(R.id.ibtnDeveloperEditMotto)).perform(click())
+        onView(withId(R.id.md_input_message)).perform(replaceText(updatedMotto))
+        onView(withText(R.string.mdEditDeveloperButton_text)).perform(click())
+        onView(withId(R.id.tvDeveloperMotto)).check(matches(withText(updatedMotto)))
 
         mainActivityTestResult.activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperName))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedName)))
-        Espresso.onView(ViewMatchers.withId(R.id.tvDeveloperMotto))
-            .check(ViewAssertions.matches(ViewMatchers.withText(updatedMotto)))
+        onView(withId(R.id.tvDeveloperName)).check(matches(withText(updatedName)))
+        onView(withId(R.id.tvDeveloperMotto)).check(matches(withText(updatedMotto)))
 
         mainActivityTestResult.activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    @Test
+    fun navigateToSettingsFragment() {
+        onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
+        onView(withId(R.id.settingsFragment)).perform(click())
+        onView(withId(R.id.fragmentSettings)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun navigateToSleepNightsFragment() {
+        onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
+        onView(withId(R.id.sleepNightsFragment)).perform(click())
+        onView(withId(R.id.fragmentSleepNights)).check(matches(isDisplayed()))
     }
 
     @After
