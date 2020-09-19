@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.home
 
 import android.content.pm.ActivityInfo
 import android.view.Gravity
@@ -16,8 +16,10 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import saberliou.demo.profile.home.Developer
-import saberliou.demo.profile.home.HomeFragment
+import saberliou.demo.profile.ImageViewDrawableMatcher
+import saberliou.demo.profile.MainActivity
+import saberliou.demo.profile.R
+import saberliou.demo.profile.ToastMatcher
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +29,7 @@ class HomeFragmentTest {
     var mainActivityTestResult = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun activateFragment() {
+    fun areComponentsVisibleInFragment() {
         val developer = Developer()
         onView(withId(R.id.ivDeveloperImage)).check(matches(ImageViewDrawableMatcher.withDrawable(R.drawable.head_photo)))
 
