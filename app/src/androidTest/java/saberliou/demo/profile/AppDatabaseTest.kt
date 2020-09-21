@@ -2,18 +2,19 @@ package saberliou.demo.profile
 
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import saberliou.demo.profile.sleepqualitytracker.SleepNight
 import saberliou.demo.profile.sleepqualitytracker.SleepNightDao
 import java.io.IOException
 
+@MediumTest
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AppDatabaseTest {
     private lateinit var sleepNightDao: SleepNightDao
     private lateinit var appDatabase: AppDatabase
@@ -32,7 +33,7 @@ class AppDatabaseTest {
 
     @Test
     @Throws(IOException::class)
-    fun createAndGetTheNight() = runBlocking {
+    fun test01_createAndGetTheNight() = runBlocking {
         val expectedNight = SleepNight()
         sleepNightDao.insert(expectedNight)
         val actualNight = sleepNightDao.get(1)

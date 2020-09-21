@@ -13,9 +13,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import org.junit.After
+import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import saberliou.demo.profile.ImageViewDrawableMatcher
 import saberliou.demo.profile.MainActivity
 import saberliou.demo.profile.R
@@ -23,13 +25,14 @@ import saberliou.demo.profile.ToastMatcher
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class HomeFragmentTest {
     @Rule
     @JvmField
     var mainActivityTestResult = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun areComponentsVisibleInFragment() {
+    fun test01_areComponentsVisibleInFragment() {
         val developer = Developer()
         onView(withId(R.id.ivDeveloperImage)).check(matches(ImageViewDrawableMatcher.withDrawable(R.drawable.head_photo)))
 
@@ -43,7 +46,7 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun updateDeveloperName() {
+    fun test02_updateDeveloperName() {
         val updatedName = "Guo-Xun Liu"
         onView(withId(R.id.ibtnDeveloperEditName)).perform(click())
         onView(withText(R.string.mdEditDeveloperNameTitle_text)).check(matches(isDisplayed()))
@@ -67,7 +70,7 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun updateDeveloperMotto() {
+    fun test03_updateDeveloperMotto() {
         val updatedMotto = "No codes, no life."
         onView(withId(R.id.ibtnDeveloperEditMotto)).perform(click())
         onView(withText(R.string.mdEditDeveloperMottoTitle_text)).check(matches(isDisplayed()))
@@ -91,7 +94,7 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun holdDataOnViewAfterRotation() {
+    fun test04_holdDataOnViewAfterRotation() {
         val updatedName = "Guo-Xun Liu"
         onView(withId(R.id.ibtnDeveloperEditName)).perform(click())
         onView(withId(R.id.md_input_message)).perform(replaceText(updatedName))
@@ -113,14 +116,14 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun navigateToSettingsFragment() {
+    fun test05_navigateToSettingsFragment() {
         onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
         onView(withId(R.id.settingsFragment)).perform(click())
         onView(withId(R.id.fragmentSettings)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun navigateToSleepNightsFragment() {
+    fun test06_navigateToSleepNightsFragment() {
         onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
         onView(withId(R.id.sleepNightsFragment)).perform(click())
         onView(withId(R.id.fragmentSleepNights)).check(matches(isDisplayed()))
