@@ -5,22 +5,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_sleep_night.view.*
 import saberliou.demo.profile.R
 import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.SleepNightViewHolder.Companion.createFrom
 
-class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
-    var nights = listOf<SleepNight>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+//class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
+class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.SleepNightViewHolder>(object : DiffUtil.ItemCallback<SleepNight>() {
+    /**
+     * Check whether two object represent the same item, to discover if an item was added, removed or moved for DiffUtil.
+     */
+    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem.nightId == newItem.nightId
 
-    override fun getItemCount() = nights.size
+    /**
+     * Check whether two items have the same data, to detect if the contents of an item have changed for DiffUtil.
+     *
+     * If the item is a data-class object, simply use '==' to compare them.
+     * This method is called only if areItemsTheSame(T, T) returns true for these items.
+     */
+    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem == newItem
+}) {
+//    var nights = listOf<SleepNight>()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//        }
+
+//    override fun getItemCount() = nights.size
 
     override fun onBindViewHolder(holder: SleepNightViewHolder, position: Int) {
-        holder.bind(nights[position])
+//        holder.bind(nights[position])
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createFrom(parent)
