@@ -1,15 +1,11 @@
 package saberliou.demo.profile.sleepqualitytracker
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_sleep_night.view.*
-import saberliou.demo.profile.R
+import saberliou.demo.profile.databinding.ItemSleepNightBinding
 import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.SleepNightViewHolder.Companion.createFrom
 
 //class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
@@ -45,34 +41,49 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.SleepNightVi
     /**
      * Use a private constructor to prevent instantiating the [SleepNightViewHolder] without [createFrom] anywhere else.
      */
-    class SleepNightViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//    class SleepNightViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SleepNightViewHolder private constructor(private val binding: ItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
+//            fun createFrom(parent: ViewGroup) = SleepNightViewHolder(
+//                LayoutInflater.from(parent.context).inflate(
+//                    R.layout.item_sleep_night, parent, false
+//                )
+//            )
+
             fun createFrom(parent: ViewGroup) = SleepNightViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_sleep_night, parent, false
+                ItemSleepNightBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
                 )
             )
         }
 
-        private val qualityImage: ImageView = itemView.ivSleepNightQualityImage
-        private val qualityTime: TextView = itemView.tvSleepNightQualityTimeText
-        private val quality: TextView = itemView.tvSleepNightQualityText
+//        private val qualityImage: ImageView = itemView.ivSleepNightQualityImage
+//        private val duration: TextView = itemView.tvSleepNightDurationText
+//        private val quality: TextView = itemView.tvSleepNightQualityText
+
+//        fun bind(night: SleepNight) {
+//            val resources = itemView.context.resources
+//            qualityImage.setImageResource(
+//                when (night.quality) {
+//                    0 -> R.drawable.ic_sleep_quality_0
+//                    1 -> R.drawable.ic_sleep_quality_1
+//                    2 -> R.drawable.ic_sleep_quality_2
+//                    3 -> R.drawable.ic_sleep_quality_3
+//                    4 -> R.drawable.ic_sleep_quality_4
+//                    5 -> R.drawable.ic_sleep_quality_5
+//                    else -> R.drawable.ic_sleep_quality_default
+//                }
+//            )
+//            duration.text = convertDurationToFormatted(night.startTime, night.endTime, resources)
+//            quality.text = convertNumericQualityToString(night.quality, resources)
+//        }
 
         fun bind(night: SleepNight) {
-            val resources = itemView.context.resources
-            qualityImage.setImageResource(
-                when (night.quality) {
-                    0 -> R.drawable.ic_sleep_quality_0
-                    1 -> R.drawable.ic_sleep_quality_1
-                    2 -> R.drawable.ic_sleep_quality_2
-                    3 -> R.drawable.ic_sleep_quality_3
-                    4 -> R.drawable.ic_sleep_quality_4
-                    5 -> R.drawable.ic_sleep_quality_5
-                    else -> R.drawable.ic_sleep_quality_default
-                }
-            )
-            qualityTime.text = convertDurationToFormatted(night.startTime, night.endTime, resources)
-            quality.text = convertNumericQualityToString(night.quality, resources)
+            binding.sleepNight = night
+            // Evaluates the pending bindings, updating any Views that have expressions bound to modified variables immediately, must be run on the UI thread.
+            // To avoid scheduling updated bindings by other Threads but UI Thread doesn't applied these changes to View,
+            // or every time the binding update could cause a View to change its size and postponing the calculation in the next frame could cause the measurement to read wrong values.
+            binding.executePendingBindings()
         }
     }
 }

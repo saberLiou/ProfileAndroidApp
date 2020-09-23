@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/ivSleepNightQualityImage"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_sleep_quality_5"
-        android:contentDescription="@string/ivSleepNightQualityImage_contentDescription" />
+    <data>
 
-    <TextView
-        android:id="@+id/tvSleepNightQualityTimeText"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivSleepNightQualityImage"
-        app:layout_constraintTop_toTopOf="@+id/ivSleepNightQualityImage"
-        tools:text="Wednesday" />
+        <variable
+            name="sleepNight"
+            type="saberliou.demo.profile.sleepqualitytracker.SleepNight" />
+    </data>
 
-    <TextView
-        android:id="@+id/tvSleepNightQualityText"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/tvSleepNightQualityTimeText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvSleepNightQualityTimeText"
-        app:layout_constraintTop_toBottomOf="@+id/tvSleepNightQualityTimeText"
-        tools:text="@string/five_excellent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivSleepNightQualityImage"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/ivSleepNightQualityImage_contentDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qualityImage="@{sleepNight}"
+            tools:srcCompat="@drawable/ic_sleep_quality_5" />
+
+        <TextView
+            android:id="@+id/tvSleepNightDurationText"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:formattedDuration="@{sleepNight}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivSleepNightQualityImage"
+            app:layout_constraintTop_toTopOf="@+id/ivSleepNightQualityImage"
+            tools:text="Wednesday" />
+
+        <TextView
+            android:id="@+id/tvSleepNightQualityText"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvSleepNightDurationText"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvSleepNightDurationText"
+            app:layout_constraintTop_toBottomOf="@+id/tvSleepNightDurationText"
+            app:quality="@{sleepNight}"
+            tools:text="@string/five_excellent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
