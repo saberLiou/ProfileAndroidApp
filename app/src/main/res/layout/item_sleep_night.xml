@@ -28,28 +28,43 @@
             app:qualityImage="@{sleepNight}"
             tools:srcCompat="@drawable/ic_sleep_quality_5" />
 
-        <TextView
-            android:id="@+id/tvSleepNightDurationText"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:formattedDuration="@{sleepNight}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivSleepNightQualityImage"
-            app:layout_constraintTop_toTopOf="@+id/ivSleepNightQualityImage"
-            tools:text="Wednesday" />
+        <!-- item in LinearLayoutManager -->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvSleepNightDurationText"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="20dp"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            app:formattedDuration="@{sleepNight}"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/ivSleepNightQualityImage"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/ivSleepNightQualityImage"-->
+        <!--            tools:text="Wednesday" />-->
 
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvSleepNightQualityText"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="20dp"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/tvSleepNightDurationText"-->
+        <!--            app:layout_constraintHorizontal_bias="0.0"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tvSleepNightDurationText"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvSleepNightDurationText"-->
+        <!--            app:quality="@{sleepNight}"-->
+        <!--            tools:text="@string/five_excellent" />-->
+
+        <!-- item in GridLayoutManager -->
         <TextView
             android:id="@+id/tvSleepNightQualityText"
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/tvSleepNightDurationText"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivSleepNightQualityImage"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvSleepNightDurationText"
-            app:layout_constraintTop_toBottomOf="@+id/tvSleepNightDurationText"
+            app:layout_constraintStart_toStartOf="@+id/ivSleepNightQualityImage"
+            app:layout_constraintTop_toBottomOf="@+id/ivSleepNightQualityImage"
             app:quality="@{sleepNight}"
             tools:text="@string/five_excellent" />
 

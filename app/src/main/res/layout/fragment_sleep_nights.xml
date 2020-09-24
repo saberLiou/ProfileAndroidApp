@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- nightsString TextView in ScrollView -->
         <!--        <ScrollView-->
         <!--            android:layout_width="match_parent"-->
         <!--            android:layout_height="0dp"-->
@@ -36,11 +37,22 @@
 
         <!--        </ScrollView>-->
 
+        <!-- RecyclerView with LinearLayoutManager -->
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/rvSleepNights"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/btnClearSleepNights"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnStopTracking" />-->
+
+        <!-- RecyclerView with GridLayoutManager -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSleepNights"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/btnClearSleepNights"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

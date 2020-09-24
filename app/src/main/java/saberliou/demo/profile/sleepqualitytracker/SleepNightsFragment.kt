@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import saberliou.demo.profile.AnyViewModelFactory
 import saberliou.demo.profile.AppDatabase
@@ -82,6 +83,8 @@ class SleepNightsFragment : Fragment() {
                 }
             }
         })
+
+        binding.rvSleepNights.layoutManager = GridLayoutManager(requireActivity(), 3)
 
         return binding.root
     }
