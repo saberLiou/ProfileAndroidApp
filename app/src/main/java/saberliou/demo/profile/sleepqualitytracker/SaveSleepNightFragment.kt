@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import saberliou.demo.profile.AnyViewModelFactory
 import saberliou.demo.profile.AppDatabase
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentSaveSleepNightBinding
@@ -38,7 +39,12 @@ class SaveSleepNightFragment : Fragment() {
         val nightId = SaveSleepNightFragmentArgs.fromBundle(requireArguments()).nightId
         viewModel = ViewModelProvider(
             this,
-            SaveSleepNightViewModelFactory(nightId, AppDatabase.getInstance(requireActivity().application).sleepNightDao)
+            AnyViewModelFactory {
+                SaveSleepNightViewModel(
+                    nightId,
+                    AppDatabase.getInstance(requireActivity().application).sleepNightDao
+                )
+            }
         ).get(SaveSleepNightViewModel::class.java)
 
         binding.viewModel = viewModel

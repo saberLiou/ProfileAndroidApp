@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import saberliou.demo.profile.AnyViewModelFactory
 import saberliou.demo.profile.AppDatabase
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentSleepNightsBinding
@@ -39,10 +40,12 @@ class SleepNightsFragment : Fragment() {
         val application = requireActivity().application
         viewModel = ViewModelProvider(
             this,
-            SleepNightsViewModelFactory(
-                application,
-                AppDatabase.getInstance(application).sleepNightDao
-            )
+            AnyViewModelFactory {
+                SleepNightsViewModel(
+                    application,
+                    AppDatabase.getInstance(application).sleepNightDao
+                )
+            }
         ).get(SleepNightsViewModel::class.java)
         binding.viewModel = viewModel
 

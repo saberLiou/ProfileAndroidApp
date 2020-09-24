@@ -4,27 +4,28 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = SleepNight.tableName)
+@Entity(tableName = SleepNight.TABLE_NAME)
 data class SleepNight(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = nightIdName)
+    @ColumnInfo(name = NIGHT_ID)
     var nightId: Long = 0L,
 
-    @ColumnInfo(name = qualityName)
+    @ColumnInfo(name = QUALITY)
     var quality: Int = -1,
 
-    @ColumnInfo(name = startTimeName)
+    @ColumnInfo(name = START_TIME)
     val startTime: Long = System.currentTimeMillis(),
 
-    @ColumnInfo(name = endTimeName)
+    @ColumnInfo(name = END_TIME)
     var endTime: Long = startTime
 ) {
     companion object {
-        const val tableName = "sleep_nights"
-        const val nightIdName = "night_id"
-        const val qualityName = "quality"
-        const val startTimeName = "start_time"
-        const val endTimeName = "end_time"
+        const val TABLE_NAME = "sleep_nights"
+
+        const val NIGHT_ID = "night_id"
+        const val QUALITY = "quality"
+        const val START_TIME = "start_time"
+        const val END_TIME = "end_time"
     }
 
     override fun equals(other: Any?): Boolean {
