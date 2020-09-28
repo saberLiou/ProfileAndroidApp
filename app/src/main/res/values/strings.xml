@@ -23,6 +23,7 @@
     <string name="btnStopTracking_text">Stop</string>
     <string name="btnClearSleepNights_text">Clear</string>
     <string name="ivSleepNightQualityImage_contentDescription">a sleep night quality</string>
+    <string name="btnCloseSleepNightDetail_text">Close</string>
 
     <!-- Toast to play after Clear button has been pressed -->
     <string name="cleared_message">All your data is gone forever.</string>

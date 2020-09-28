@@ -9,20 +9,21 @@ import saberliou.demo.profile.databinding.ItemSleepNightBinding
 import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.SleepNightViewHolder.Companion.createFrom
 
 //class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
-class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.SleepNightViewHolder>(object : DiffUtil.ItemCallback<SleepNight>() {
-    /**
-     * Check whether two object represent the same item, to discover if an item was added, removed or moved for DiffUtil.
-     */
-    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem.nightId == newItem.nightId
+class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClickListener) :
+    ListAdapter<SleepNight, SleepNightAdapter.SleepNightViewHolder>(object : DiffUtil.ItemCallback<SleepNight>() {
+        /**
+         * Check whether two object represent the same item, to discover if an item was added, removed or moved for DiffUtil.
+         */
+        override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem.nightId == newItem.nightId
 
-    /**
-     * Check whether two items have the same data, to detect if the contents of an item have changed for DiffUtil.
-     *
-     * If the item is a data-class object, simply use '==' to compare them.
-     * This method is called only if areItemsTheSame(T, T) returns true for these items.
-     */
-    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem == newItem
-}) {
+        /**
+         * Check whether two items have the same data, to detect if the contents of an item have changed for DiffUtil.
+         *
+         * If the item is a data-class object, simply use '==' to compare them.
+         * This method is called only if areItemsTheSame(T, T) returns true for these items.
+         */
+        override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem == newItem
+    }) {
 //    var nights = listOf<SleepNight>()
 //        set(value) {
 //            field = value
@@ -33,10 +34,14 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.SleepNightVi
 
     override fun onBindViewHolder(holder: SleepNightViewHolder, position: Int) {
 //        holder.bind(nights[position])
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onSleepNightClickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createFrom(parent)
+
+    interface OnSleepNightClickListener {
+        fun onSleepNightClicked(night: SleepNight)
+    }
 
     /**
      * Use a private constructor to prevent instantiating the [SleepNightViewHolder] without [createFrom] anywhere else.
@@ -78,8 +83,9 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.SleepNightVi
 //            quality.text = convertNumericQualityToString(night.quality, resources)
 //        }
 
-        fun bind(night: SleepNight) {
+        fun bind(night: SleepNight, onSleepNightClickListener: OnSleepNightClickListener) {
             binding.sleepNight = night
+            binding.onSleepNightClickListener = onSleepNightClickListener
             // Evaluates the pending bindings, updating any Views that have expressions bound to modified variables immediately, must be run on the UI thread.
             // To avoid scheduling updated bindings by other Threads but UI Thread doesn't applied these changes to View,
             // or every time the binding update could cause a View to change its size and postponing the calculation in the next frame could cause the measurement to read wrong values.

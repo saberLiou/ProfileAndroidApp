@@ -17,10 +17,31 @@ import java.util.*
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Use the [HomeFragment.newInstance] factory method to create an instance of this fragment.
  */
 class HomeFragment : Fragment() {
+    companion object {
+        /**
+         * Use this factory method to create a new instance of this fragment using the provided parameters.
+         *
+         * @return A new instance of fragment [HomeFragment].
+         */
+        @JvmStatic
+        fun newInstance() = HomeFragment().apply {
+            arguments = Bundle().apply {
+
+            }
+        }
+
+        fun makeToastString(field: String, value: String) = "Your $field is $value now."
+
+        enum class UpdateTypes {
+            NAME, MOTTO;
+
+            fun getType() = this.toString().toLowerCase(Locale.ROOT)
+        }
+    }
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
 
@@ -111,30 +132,6 @@ class HomeFragment : Fragment() {
                 title(titleTextResourceId)
                 positiveButton(R.string.mdEditDeveloperButton_text)
             }
-        }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment HomeFragment.
-         */
-        @JvmStatic
-        fun newInstance() =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-
-        fun makeToastString(field: String, value: String) = "Your $field is $value now."
-
-        enum class UpdateTypes {
-            NAME, MOTTO;
-
-            fun getType() = this.toString().toLowerCase(Locale.ROOT)
         }
     }
 }

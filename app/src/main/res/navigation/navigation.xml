@@ -29,6 +29,12 @@
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_right" />
 
+        <action
+            android:id="@+id/action_sleepNightsFragment_to_sleepNightDetailFragment"
+            app:destination="@id/sleepNightDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+
     </fragment>
 
     <fragment
@@ -42,7 +48,25 @@
             app:argType="long" />
 
         <action
-            android:id="@+id/action_sleepQualityFragment_to_sleepTrackerFragment"
+            android:id="@+id/action_saveSleepNightFragment_to_sleepNightsFragment"
+            app:destination="@id/sleepNightsFragment"
+            app:popUpTo="@+id/sleepNightsFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sleepNightDetailFragment"
+        android:name="saberliou.demo.profile.sleepqualitytracker.SleepNightDetailFragment"
+        android:label="@string/sleepQualityTracker_actionBarTitle_text"
+        tools:layout="@layout/fragment_sleep_night_detail">
+
+        <argument
+            android:name="nightId"
+            app:argType="long" />
+
+        <action
+            android:id="@+id/action_sleepNightDetailFragment_to_sleepNightsFragment"
             app:destination="@id/sleepNightsFragment"
             app:popUpTo="@+id/sleepNightsFragment"
             app:popUpToInclusive="true" />

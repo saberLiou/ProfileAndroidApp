@@ -8,11 +8,16 @@
         <variable
             name="sleepNight"
             type="saberliou.demo.profile.sleepqualitytracker.SleepNight" />
+
+        <variable
+            name="onSleepNightClickListener"
+            type="saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.OnSleepNightClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> onSleepNightClickListener.onSleepNightClicked(sleepNight)}">
 
         <ImageView
             android:id="@+id/ivSleepNightQualityImage"

@@ -40,6 +40,41 @@ class SleepNightsViewModel(
         get() = _navigateToSaveSleepNight
 
     /**
+     * Call this immediately after navigating to [SaveSleepNightFragment]
+     *
+     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
+     */
+    fun onSaveSleepNightNavigationDone() {
+        _navigateToSaveSleepNight.value = null
+    }
+
+    /**
+     * Variable that tells the Fragment to navigate to a specific [SleepNightDetailFragment]
+     *
+     * This is private because we don't want to expose setting this value to the Fragment.
+     */
+    private val _navigateToSleepNightDetail = MutableLiveData<SleepNight>()
+
+    /**
+     * If this is non-null, immediately navigate to [SleepNightDetailFragment] and call [onSleepNightDetailNavigationDone]
+     */
+    val navigateToSleepNightDetail: LiveData<SleepNight>
+        get() = _navigateToSleepNightDetail
+
+    /**
+     * Call this immediately after navigating to [SleepNightDetailFragment]
+     *
+     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
+     */
+    fun onSleepNightDetailNavigationDone() {
+        _navigateToSleepNightDetail.value = null
+    }
+
+    fun onSleepNightClicked(night: SleepNight) {
+        _navigateToSleepNightDetail.value = night
+    }
+
+    /**
      * Variable that tells the Fragment to show a SnackBar.
      *
      * This is private because we don't want to expose setting this value to the Fragment.
@@ -51,15 +86,6 @@ class SleepNightsViewModel(
      */
     val showSnackbar: LiveData<Boolean>
         get() = _showSnackbar
-
-    /**
-     * Call this immediately after navigating to [SaveSleepNightFragment]
-     *
-     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
-     */
-    fun onSaveSleepNightNavigationDone() {
-        _navigateToSaveSleepNight.value = null
-    }
 
     /**
      * Call this immediately after showing a Snackbar.

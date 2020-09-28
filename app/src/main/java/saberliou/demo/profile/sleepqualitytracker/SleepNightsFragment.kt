@@ -17,10 +17,23 @@ import saberliou.demo.profile.databinding.FragmentSleepNightsBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SleepNightsFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Use the [SleepNightsFragment.newInstance] factory method to create an instance of this fragment.
  */
 class SleepNightsFragment : Fragment() {
+    companion object {
+        /**
+         * Use this factory method to create a new instance of this fragment using the provided parameters.
+         *
+         * @return A new instance of fragment [SleepNightsFragment].
+         */
+        @JvmStatic
+        fun newInstance() = SleepNightsFragment().apply {
+            arguments = Bundle().apply {
+
+            }
+        }
+    }
+
     private lateinit var binding: FragmentSleepNightsBinding
     private lateinit var viewModel: SleepNightsViewModel
 
@@ -50,7 +63,11 @@ class SleepNightsFragment : Fragment() {
         ).get(SleepNightsViewModel::class.java)
         binding.viewModel = viewModel
 
-        val sleepNightAdapter = SleepNightAdapter()
+        val sleepNightAdapter = SleepNightAdapter(object : SleepNightAdapter.OnSleepNightClickListener {
+            override fun onSleepNightClicked(night: SleepNight) {
+                viewModel.onSleepNightClicked(night)
+            }
+        })
         binding.rvSleepNights.adapter = sleepNightAdapter
 
         viewModel.nights.observe(viewLifecycleOwner, { nights ->
@@ -67,6 +84,14 @@ class SleepNightsFragment : Fragment() {
                 findNavController().navigate(SleepNightsFragmentDirections.actionSleepNightsFragmentToSaveSleepNightFragment((night.nightId)))
 
                 viewModel.onSaveSleepNightNavigationDone()
+            }
+        })
+
+        viewModel.navigateToSleepNightDetail.observe(viewLifecycleOwner, { night ->
+            night?.let {
+                findNavController().navigate(SleepNightsFragmentDirections.actionSleepNightsFragmentToSleepNightDetailFragment(night.nightId))
+
+                viewModel.onSleepNightDetailNavigationDone()
             }
         })
 
@@ -87,21 +112,5 @@ class SleepNightsFragment : Fragment() {
         binding.rvSleepNights.layoutManager = GridLayoutManager(requireActivity(), 3)
 
         return binding.root
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment SleepNightsFragment.
-         */
-        @JvmStatic
-        fun newInstance() =
-            SleepNightsFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
     }
 }
