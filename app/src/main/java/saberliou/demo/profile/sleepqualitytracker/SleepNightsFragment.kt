@@ -73,7 +73,7 @@ class SleepNightsFragment : Fragment() {
         viewModel.nights.observe(viewLifecycleOwner, { nights ->
             nights?.let {
 //                sleepNightAdapter.nights = nights
-                sleepNightAdapter.submitList(nights)
+                sleepNightAdapter.submitListWithHeader(nights)
             }
         })
 
@@ -109,7 +109,14 @@ class SleepNightsFragment : Fragment() {
             }
         })
 
-        binding.rvSleepNights.layoutManager = GridLayoutManager(requireActivity(), 3)
+        binding.rvSleepNights.layoutManager = GridLayoutManager(requireActivity(), 3).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int) = when (position) {
+                    0 -> 3
+                    else -> 1
+                }
+            }
+        }
 
         return binding.root
     }

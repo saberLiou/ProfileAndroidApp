@@ -1,28 +1,40 @@
 package saberliou.demo.profile.sleepqualitytracker
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.ItemSleepNightBinding
-import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.SleepNightViewHolder.Companion.createFrom
+import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter.SleepNightItemViewHolder.Companion.createFrom
 
 //class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
-class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClickListener) :
-    ListAdapter<SleepNight, SleepNightAdapter.SleepNightViewHolder>(object : DiffUtil.ItemCallback<SleepNight>() {
-        /**
-         * Check whether two object represent the same item, to discover if an item was added, removed or moved for DiffUtil.
-         */
-        override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem.nightId == newItem.nightId
 
-        /**
-         * Check whether two items have the same data, to detect if the contents of an item have changed for DiffUtil.
-         *
-         * If the item is a data-class object, simply use '==' to compare them.
-         * This method is called only if areItemsTheSame(T, T) returns true for these items.
-         */
-        override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem == newItem
+//class SleepNightAdapter(private val onSleepNightClickListener: SleepNightAdapter.OnSleepNightClickListener) :
+//    ListAdapter<SleepNight, SleepNightAdapter.SleepNightItemViewHolder>(object : DiffUtil.ItemCallback<SleepNight>() {
+//        /**
+//         * Check whether two object represent the same item, to discover if an item was added, removed or moved for DiffUtil.
+//         */
+//        override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem.nightId == newItem.nightId
+//
+//        /**
+//         * Check whether two items have the same data, to detect if the contents of an item have changed for DiffUtil.
+//         *
+//         * If the item is a data-class object, simply use '==' to compare them.
+//         * This method is called only if areItemsTheSame(T, T) returns true for these items.
+//         */
+//        override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight) = oldItem == newItem
+//    }) {
+class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClickListener) :
+    ListAdapter<SleepNightAdapter.SleepNightWithHeader, RecyclerView.ViewHolder>(object : DiffUtil.ItemCallback<SleepNightWithHeader>() {
+        override fun areItemsTheSame(oldItem: SleepNightWithHeader, newItem: SleepNightWithHeader) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: SleepNightWithHeader, newItem: SleepNightWithHeader) = oldItem == newItem
     }) {
 //    var nights = listOf<SleepNight>()
 //        set(value) {
@@ -32,22 +44,57 @@ class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClick
 
 //    override fun getItemCount() = nights.size
 
-    override fun onBindViewHolder(holder: SleepNightViewHolder, position: Int) {
-//        holder.bind(nights[position])
-        holder.bind(getItem(position), onSleepNightClickListener)
+    fun submitListWithHeader(nights: List<SleepNight>?) {
+        CoroutineScope(Dispatchers.Default).launch {
+            val nightsWithHeader = when (nights) {
+                null -> listOf(SleepNightWithHeader.Header)
+                else -> listOf(SleepNightWithHeader.Header) + nights.map { SleepNightWithHeader.Item(it) }
+            }
+            withContext(Dispatchers.Main) {
+                submitList(nightsWithHeader)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createFrom(parent)
+    override fun getItemViewType(position: Int) = getItem(position).viewType
+
+    //    override fun onBindViewHolder(holder: SleepNightViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+//        holder.bind(nights[position])
+
+//        holder.bind(getItem(position), onSleepNightClickListener)
+        when (holder) {
+            is SleepNightItemViewHolder -> {
+                holder.bind((getItem(position) as SleepNightWithHeader.Item).sleepNight, onSleepNightClickListener)
+            }
+        }
+    }
+
+    //    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createFrom(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            SleepNightWithHeader.VIEW_TYPE_HEADER -> SleepNightHeaderViewHolder.createFrom(parent)
+            else -> createFrom(parent)
+        }
+    }
 
     interface OnSleepNightClickListener {
         fun onSleepNightClicked(night: SleepNight)
     }
 
+    class SleepNightHeaderViewHolder private constructor(view: View) : RecyclerView.ViewHolder(view) {
+        companion object {
+            fun createFrom(parent: ViewGroup) = SleepNightHeaderViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.header_sleep_night, parent, false)
+            )
+        }
+    }
+
     /**
-     * Use a private constructor to prevent instantiating the [SleepNightViewHolder] without [createFrom] anywhere else.
+     * Use a private constructor to prevent instantiating the [SleepNightItemViewHolder] without [createFrom] anywhere else.
      */
 //    class SleepNightViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    class SleepNightViewHolder private constructor(private val binding: ItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
+    class SleepNightItemViewHolder private constructor(private val binding: ItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
         companion object {
 //            fun createFrom(parent: ViewGroup) = SleepNightViewHolder(
 //                LayoutInflater.from(parent.context).inflate(
@@ -55,7 +102,7 @@ class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClick
 //                )
 //            )
 
-            fun createFrom(parent: ViewGroup) = SleepNightViewHolder(
+            fun createFrom(parent: ViewGroup) = SleepNightItemViewHolder(
                 ItemSleepNightBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -90,6 +137,23 @@ class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClick
             // To avoid scheduling updated bindings by other Threads but UI Thread doesn't applied these changes to View,
             // or every time the binding update could cause a View to change its size and postponing the calculation in the next frame could cause the measurement to read wrong values.
             binding.executePendingBindings()
+        }
+    }
+
+    sealed class SleepNightWithHeader(val viewType: Int) {
+        companion object {
+            const val VIEW_TYPE_HEADER = 0
+            const val VIEW_TYPE_ITEM = 1
+        }
+
+        abstract val id: Long
+
+        object Header : SleepNightWithHeader(VIEW_TYPE_HEADER) {
+            override val id = Long.MIN_VALUE
+        }
+
+        data class Item(val sleepNight: SleepNight) : SleepNightWithHeader(VIEW_TYPE_ITEM) {
+            override val id = sleepNight.nightId
         }
     }
 }

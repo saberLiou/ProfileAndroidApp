@@ -21,8 +21,9 @@
     <string name="sleepQualityTracker_actionBarTitle_text">Sleep Quality Tracker</string>
     <string name="btnStartTracking_text">Start</string>
     <string name="btnStopTracking_text">Stop</string>
-    <string name="btnClearSleepNights_text">Clear</string>
+    <string name="tvSleepNightHeader_text">Sleep Results</string>
     <string name="ivSleepNightQualityImage_contentDescription">a sleep night quality</string>
+    <string name="btnClearSleepNights_text">Clear</string>
     <string name="btnCloseSleepNightDetail_text">Close</string>
 
     <!-- Toast to play after Clear button has been pressed -->
