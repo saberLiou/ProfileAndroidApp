@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_settings" />
 
     <fragment
+        android:id="@+id/githubRepositoriesFragment"
+        android:name="saberliou.demo.profile.github.GithubRepositoriesFragment"
+        android:label="@string/github_actionBarTitle_text"
+        tools:layout="@layout/fragment_github_repositories" />
+
+    <fragment
         android:id="@+id/sleepNightsFragment"
         android:name="saberliou.demo.profile.sleepqualitytracker.SleepNightsFragment"
         android:label="@string/sleepQualityTracker_actionBarTitle_text"

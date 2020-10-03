@@ -7,6 +7,11 @@
         android:title="@string/settings_actionBarTitle_text" />
 
     <item
+        android:id="@+id/githubRepositoriesFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/github_actionBarTitle_text" />
+
+    <item
         android:id="@+id/sleepNightsFragment"
         android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/sleepQualityTracker_actionBarTitle_text" />

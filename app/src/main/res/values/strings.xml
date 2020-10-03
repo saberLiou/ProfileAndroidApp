@@ -17,6 +17,9 @@
     <!-- Settings -->
     <string name="settings_actionBarTitle_text">Settings</string>
 
+    <!-- Github -->
+    <string name="github_actionBarTitle_text">Github</string>
+
     <!-- Sleep Quality Tracker -->
     <string name="sleepQualityTracker_actionBarTitle_text">Sleep Quality Tracker</string>
     <string name="btnStartTracking_text">Start</string>

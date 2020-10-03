@@ -123,7 +123,14 @@ class HomeFragmentTest {
     }
 
     @Test
-    fun test06_navigateToSleepNightsFragment() {
+    fun test06_navigateToGithubRepositoriesFragment() {
+        onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
+        onView(withId(R.id.githubRepositoriesFragment)).perform(click())
+        onView(withId(R.id.fragmentGithubRepositories)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test07_navigateToSleepNightsFragment() {
         onView(withId(R.id.drawerLayout)).check(matches(isClosed(Gravity.LEFT))).perform(open())
         onView(withId(R.id.sleepNightsFragment)).perform(click())
         onView(withId(R.id.fragmentSleepNights)).check(matches(isDisplayed()))
