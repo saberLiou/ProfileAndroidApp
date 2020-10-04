@@ -8,6 +8,10 @@ import kotlinx.coroutines.launch
 import saberliou.demo.profile.RetrofitClient
 
 class GithubRepositoriesViewModel : ViewModel() {
+    private val _githubUser = MutableLiveData<GithubUser>()
+    val githubUser: LiveData<GithubUser>
+        get() = _githubUser
+
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
@@ -15,7 +19,9 @@ class GithubRepositoriesViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             try {
-                _response.value = "Success: ${RetrofitClient.githubApiService.getRepositories().size} GithubRepositories received."
+                val githubApiService = RetrofitClient.githubApiService
+                _githubUser.value = githubApiService.getUser()
+                _response.value = "Success: ${githubApiService.getRepositories().size} GithubRepositories received."
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }

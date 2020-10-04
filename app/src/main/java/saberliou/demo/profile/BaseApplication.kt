@@ -1,9 +1,9 @@
 package saberliou.demo.profile
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import timber.log.Timber
 
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 

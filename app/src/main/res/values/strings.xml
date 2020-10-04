@@ -19,6 +19,9 @@
 
     <!-- Github -->
     <string name="github_actionBarTitle_text">Github</string>
+    <string name="ivGithubUserImage_contentDescription">A Github user\'s image</string>
+    <string name="tvGithubUserFollowers_text">%d followers</string>
+    <string name="tvGithubUserFollowing_text">%d following</string>
 
     <!-- Sleep Quality Tracker -->
     <string name="sleepQualityTracker_actionBarTitle_text">Sleep Quality Tracker</string>

@@ -1,9 +1,27 @@
-package saberliou.demo.profile.sleepqualitytracker
+package saberliou.demo.profile
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import saberliou.demo.profile.R
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import saberliou.demo.profile.sleepqualitytracker.SleepNight
+import saberliou.demo.profile.sleepqualitytracker.convertDurationToFormatted
+import saberliou.demo.profile.sleepqualitytracker.convertNumericQualityToString
+
+@BindingAdapter("imageUrl")
+fun ImageView.setImageUrl(imageUrl: String?) {
+    imageUrl?.let {
+        Glide.with(this.context)
+            .load(imageUrl)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
+            .into(this)
+    }
+}
 
 @BindingAdapter("qualityImage")
 fun ImageView.setQualityImage(night: SleepNight?) {
