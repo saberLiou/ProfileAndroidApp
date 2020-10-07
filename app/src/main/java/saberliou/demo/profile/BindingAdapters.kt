@@ -1,5 +1,6 @@
 package saberliou.demo.profile
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -39,6 +40,23 @@ fun ImageView.setQualityImage(night: SleepNight?) {
                 else -> R.drawable.ic_sleep_quality_default
             }
         )
+    }
+}
+
+@BindingAdapter("apiStatus")
+fun ImageView.setApiStatus(apiStatus: ApiStatus?) {
+    when (apiStatus) {
+        ApiStatus.LOADING -> {
+            visibility = View.VISIBLE
+            setImageResource(R.drawable.loading_animation)
+        }
+        ApiStatus.ERROR -> {
+            visibility = View.VISIBLE
+            setImageResource(R.drawable.ic_connection_error)
+        }
+        ApiStatus.DONE -> {
+            visibility = View.GONE
+        }
     }
 }
 
