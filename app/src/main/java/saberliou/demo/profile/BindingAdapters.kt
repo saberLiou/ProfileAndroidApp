@@ -3,9 +3,11 @@ package saberliou.demo.profile
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import saberliou.demo.profile.sleepqualitytracker.SleepNight
+import saberliou.demo.profile.sleepqualitytracker.SleepNightAdapter
 import saberliou.demo.profile.sleepqualitytracker.convertDurationToFormatted
 import saberliou.demo.profile.sleepqualitytracker.convertNumericQualityToString
 
@@ -51,5 +53,15 @@ fun TextView.setFormattedDuration(night: SleepNight?) {
 fun TextView.setQuality(night: SleepNight?) {
     night?.let {
         text = convertNumericQualityToString(night.quality, context.resources)
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("data")
+fun RecyclerView.setData(data: List<Any>?) {
+    data?.let {
+        when (adapter) {
+            is SleepNightAdapter -> (adapter as SleepNightAdapter).submitListWithHeader(data as List<SleepNight>)
+        }
     }
 }

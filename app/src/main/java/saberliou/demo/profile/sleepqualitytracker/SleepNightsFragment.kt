@@ -70,12 +70,12 @@ class SleepNightsFragment : Fragment() {
         })
         binding.rvSleepNights.adapter = sleepNightAdapter
 
-        viewModel.nights.observe(viewLifecycleOwner, { nights ->
-            nights?.let {
-//                sleepNightAdapter.nights = nights
-                sleepNightAdapter.submitListWithHeader(nights)
-            }
-        })
+//        viewModel.nights.observe(viewLifecycleOwner, { nights ->
+//            nights?.let {
+////                sleepNightAdapter.nights = nights
+//                sleepNightAdapter.submitListWithHeader(nights)
+//            }
+//        })
 
         binding.lifecycleOwner = viewLifecycleOwner
 
