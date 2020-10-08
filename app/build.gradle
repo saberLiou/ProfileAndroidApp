@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 // Firebase App Distribution
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.appdistribution'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.firebase.appdistribution'
 
 // Safe Args for Navigation Component
 apply plugin: 'androidx.navigation.safeargs.kotlin'
@@ -21,8 +21,8 @@ android {
     }
 
     // Firebase App Distribution
-    def keystoreProperties = new Properties()
-    keystoreProperties.load(new FileInputStream(rootProject.file("/Users/saberLiou/Documents/AndroidAppKeyStores/saberLiou-keystore.properties")))
+//    def keystoreProperties = new Properties()
+//    keystoreProperties.load(new FileInputStream(rootProject.file("/Users/saberLiou/Documents/AndroidAppKeyStores/saberLiou-keystore.properties")))
 
     defaultConfig {
         applicationId "saberliou.demo.profile"
@@ -39,14 +39,14 @@ android {
     }
 
     // Firebase App Distribution
-    signingConfigs {
-        release {
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-        }
-    }
+//    signingConfigs {
+//        release {
+//            storeFile file(keystoreProperties['storeFile'])
+//            storePassword keystoreProperties['storePassword']
+//            keyAlias keystoreProperties['keyAlias']
+//            keyPassword keystoreProperties['keyPassword']
+//        }
+//    }
 
     buildTypes {
         release {
@@ -54,11 +54,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             // Firebase App Distribution
-            signingConfig signingConfigs.release
-            firebaseAppDistribution {
-                releaseNotes = "Under Construction..."
-                testers = "saberliou@gmail.com"
-            }
+//            signingConfig signingConfigs.release
+//            firebaseAppDistribution {
+//                releaseNotes = "Under Construction..."
+//                testers = "saberliou@gmail.com"
+//            }
         }
     }
 
@@ -136,8 +136,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
 
     // Firebase App Distribution
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+//    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Multidex
     implementation 'com.android.support:multidex:1.0.3'
