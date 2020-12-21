@@ -1,14 +1,15 @@
-package saberliou.demo.profile.sleepqualitytracker
+package saberliou.demo.profile.data.source.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import saberliou.demo.profile.SleepNight
 
-@Entity(tableName = SleepNight.TABLE_NAME)
-data class SleepNight(
+@Entity(tableName = SleepNightEntity.TABLE_NAME)
+data class SleepNightEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = NIGHT_ID)
-    var nightId: Long = 0L,
+    @ColumnInfo(name = ID)
+    var id: Long = 0L,
 
     @ColumnInfo(name = QUALITY)
     var quality: Int = -1,
@@ -22,17 +23,33 @@ data class SleepNight(
     companion object {
         const val TABLE_NAME = "sleep_nights"
 
-        const val NIGHT_ID = "night_id"
+        const val ID = "id"
         const val QUALITY = "quality"
         const val START_TIME = "start_time"
         const val END_TIME = "end_time"
+
+        fun SleepNightEntity.toDomainModel() = SleepNight(
+            id = id,
+            quality = quality,
+            startTime = startTime,
+            endTime = endTime
+        )
+
+        fun List<SleepNightEntity>.toDomainModels(): List<SleepNight> = map { entity ->
+            SleepNight(
+                id = entity.id,
+                quality = entity.quality,
+                startTime = entity.startTime,
+                endTime = entity.endTime
+            )
+        }
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as SleepNight
+        other as SleepNightEntity
 
         if (quality != other.quality) return false
         if (startTime != other.startTime) return false

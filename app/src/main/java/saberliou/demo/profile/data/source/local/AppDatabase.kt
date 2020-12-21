@@ -1,20 +1,18 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.data.source.local
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import saberliou.demo.profile.sleepqualitytracker.SleepNight
-import saberliou.demo.profile.sleepqualitytracker.SleepNightDao
 
 @Database(
-    entities = [SleepNight::class],
+    entities = [
+        SleepNightEntity::class,
+        GithubUserEntity::class
+    ],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-    abstract val sleepNightDao: SleepNightDao
-
+    /*
     companion object {
         private const val DATABASE_NAME = "app-database"
 
@@ -36,4 +34,11 @@ abstract class AppDatabase : RoomDatabase() {
                 .also { instance = it }
         }
     }
+
+    abstract val githubUserDao: GithubUserDao
+    abstract val sleepNightDao: SleepNightDao
+    */
+
+    abstract fun githubUserDao(): GithubUserDao
+    abstract fun sleepNightDao(): SleepNightDao
 }

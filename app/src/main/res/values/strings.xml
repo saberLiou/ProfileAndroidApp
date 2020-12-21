@@ -3,7 +3,7 @@
     <string name="pageUnderConstruction_text">This page is under construction…</string>
 
     <!-- Home -->
-    <string name="home_actionBarTitle_text">Settings</string>
+    <string name="home_actionBarTitle_text">Home</string>
 
     <string name="optionsMenu_sharing_text">Sharing</string>
     <string name="optionsMenu_sharingSuccess_text">Hello World!</string>
@@ -25,6 +25,9 @@
 
     <!-- API Connecting Status -->
     <string name="apiStatusImage_contentDescription">The image about connecting status of the API.</string>
+
+    <!-- To-do Notes -->
+    <string name="todoNotes_actionBarTitle_text">Todo Notes</string>
 
     <!-- Sleep Quality Tracker -->
     <string name="sleepQualityTracker_actionBarTitle_text">Sleep Quality Tracker</string>

@@ -6,67 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import saberliou.demo.profile.AnyViewModelFactory
-import saberliou.demo.profile.AppDatabase
+import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentSleepNightDetailBinding
+import saberliou.demo.profile.util.EventObserver
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SleepNightDetailFragment.newInstance] factory method to create an instance of this fragment.
- */
+@AndroidEntryPoint
 class SleepNightDetailFragment : Fragment() {
-    /**
-     * Use this factory method to create a new instance of this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment [SleepNightDetailFragment].
-     */
-    companion object {
-        fun newInstance() = SleepNightDetailFragment().apply {
-            arguments = Bundle().apply {
-
-            }
-        }
-    }
-
     private lateinit var binding: FragmentSleepNightDetailBinding
-    private lateinit var viewModel: SleepNightDetailViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
+    private val args: SleepNightDetailFragmentArgs by navArgs()
+    private val viewModel: SleepNightDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sleep_night_detail, container, false)
-
-        val nightId = SleepNightDetailFragmentArgs.fromBundle(requireArguments()).nightId
-        viewModel = ViewModelProvider(this, AnyViewModelFactory {
-            SleepNightDetailViewModel(
-                nightId,
-                AppDatabase.getInstance(requireActivity().application).sleepNightDao
-            )
-        }).get(SleepNightDetailViewModel::class.java)
+    ): View {
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_sleep_night_detail,
+            container,
+            false
+        )
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
+    }
 
-        viewModel.navigateToSleepNights.observe(viewLifecycleOwner, { toNavigate ->
-            when (toNavigate) {
-                true -> {
-                    findNavController().navigate(SleepNightDetailFragmentDirections.actionSleepNightDetailFragmentToSleepNightsFragment())
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        @Suppress("DEPRECATION")
+        super.onActivityCreated(savedInstanceState)
 
-                    viewModel.onSleepNightsNavigationDone()
-                }
-            }
+        viewModel.navigateToSleepNights.observe(viewLifecycleOwner, EventObserver {
+            findNavController().navigate(
+                SleepNightDetailFragmentDirections.actionSleepNightDetailFragmentToSleepNightsFragment()
+            )
         })
 
-        return binding.root
+        viewModel.initialize(args.nightId)
     }
 }

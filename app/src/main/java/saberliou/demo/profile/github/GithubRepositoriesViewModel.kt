@@ -6,15 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import saberliou.demo.profile.ApiStatus
-import saberliou.demo.profile.RetrofitClient
+import saberliou.demo.profile.data.source.remote.RemoteGithubUser
+import saberliou.demo.profile.data.source.remote.RetrofitClient
 
 class GithubRepositoriesViewModel : ViewModel() {
     private val _apiStatus = MutableLiveData<ApiStatus>()
     val apiStatus: LiveData<ApiStatus>
         get() = _apiStatus
 
-    private val _githubUser = MutableLiveData<GithubUser>()
-    val githubUser: LiveData<GithubUser>
+    private val _githubUser = MutableLiveData<RemoteGithubUser>()
+    val remoteGithubUser: LiveData<RemoteGithubUser>
         get() = _githubUser
 
     private val _response = MutableLiveData<String>()
@@ -30,7 +31,7 @@ class GithubRepositoriesViewModel : ViewModel() {
                 _response.value = "Success: ${githubApiService.getRepositories().size} GithubRepositories received."
                 _apiStatus.value = ApiStatus.DONE
             } catch (e: Exception) {
-                _githubUser.value = GithubUser()
+                _githubUser.value = RemoteGithubUser()
                 _response.value = "Failure: ${e.message}"
                 _apiStatus.value = ApiStatus.ERROR
             }

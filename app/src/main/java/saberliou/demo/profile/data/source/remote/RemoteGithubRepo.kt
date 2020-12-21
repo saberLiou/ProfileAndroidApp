@@ -1,8 +1,8 @@
-package saberliou.demo.profile.github
+package saberliou.demo.profile.data.source.remote
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubRepo(
+data class RemoteGithubRepo(
     val name: String,
 
     @SerializedName("private")

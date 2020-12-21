@@ -36,7 +36,7 @@
                     android:layout_height="194dp"
                     android:contentDescription="@string/ivGithubUserImage_contentDescription"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{viewModel.githubUser.imageUrl}" />
+                    app:imageUrl="@{viewModel.remoteGithubUser.imageUrl}" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -48,14 +48,14 @@
                         android:id="@+id/tvGithubUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.githubUser.name}"
+                        android:text="@{viewModel.remoteGithubUser.name}"
                         android:textAppearance="?attr/textAppearanceHeadline6" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{@string/tvGithubUserFollowers_text(viewModel.githubUser.followers)}"
+                        android:text="@{@string/tvGithubUserFollowers_text(viewModel.remoteGithubUser.followers)}"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@{@string/tvGithubUserFollowing_text(viewModel.githubUser.following)}"
+                        android:text="@{@string/tvGithubUserFollowing_text(viewModel.remoteGithubUser.following)}"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary" />
 

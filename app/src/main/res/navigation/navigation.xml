@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_github_repositories" />
 
     <fragment
+        android:id="@+id/todoNotesFragment"
+        android:name="saberliou.demo.profile.todonotes.TodoNotesFragment"
+        android:label="@string/todoNotes_actionBarTitle_text"
+        tools:layout="@layout/fragment_todo_notes" />
+
+    <fragment
         android:id="@+id/sleepNightsFragment"
         android:name="saberliou.demo.profile.sleepqualitytracker.SleepNightsFragment"
         android:label="@string/sleepQualityTracker_actionBarTitle_text"

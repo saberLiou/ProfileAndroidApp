@@ -5,72 +5,35 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.input.input
-import saberliou.demo.profile.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentHomeBinding
-import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to create an instance of this fragment.
- */
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
-    companion object {
-        /**
-         * Use this factory method to create a new instance of this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment [HomeFragment].
-         */
-        @JvmStatic
-        fun newInstance() = HomeFragment().apply {
-            arguments = Bundle().apply {
-
-            }
-        }
-
-        fun makeToastString(field: String, value: String) = "Your $field is $value now."
-
-        enum class UpdateTypes {
-            NAME, MOTTO;
-
-            fun getType() = this.toString().toLowerCase(Locale.ROOT)
-        }
-    }
+    //    private val viewModel: HomeViewModel by viewModels {
+//        AnyViewModelFactory {
+//            HomeViewModel((requireContext().applicationContext as BaseApplication).githubRepository)
+//        }
+//    }
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-
-        setHasOptionsMenu(true)
-
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.ibtnDeveloperEditName.setOnClickListener {
-            launchMaterialDialog(R.string.mdEditDeveloperNameTitle_text)
-        }
-        binding.ibtnDeveloperEditMotto.setOnClickListener {
-            launchMaterialDialog(R.string.mdEditDeveloperMottoTitle_text)
-        }
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -109,29 +72,29 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun launchMaterialDialog(titleTextResourceId: Int) {
-        activity?.let {
-            MaterialDialog(it).show {
-                input(waitForPositiveButton = true, allowEmpty = false) { _, value ->
-                    val valueStr = value.toString()
-                    val message = when (titleTextResourceId) {
-                        R.string.mdEditDeveloperNameTitle_text -> {
-                            viewModel.updateDeveloperName(valueStr)
-                            makeToastString(UpdateTypes.NAME.getType(), valueStr)
-                        }
-                        R.string.mdEditDeveloperMottoTitle_text -> {
-                            viewModel.updateDeveloperMotto(valueStr)
-                            makeToastString(UpdateTypes.MOTTO.getType(), valueStr)
-                        }
-                        else -> ""
-                    }
-                    when (val activity = activity) {
-                        is MainActivity -> activity.showToast(message)
-                    }
-                }
-                title(titleTextResourceId)
-                positiveButton(R.string.mdEditDeveloperButton_text)
-            }
-        }
-    }
+//    private fun launchMaterialDialog(titleTextResourceId: Int) {
+//        activity?.let {
+//            MaterialDialog(it).show {
+//                input(waitForPositiveButton = true, allowEmpty = false) { _, value ->
+//                    val valueStr = value.toString()
+//                    val message = when (titleTextResourceId) {
+//                        R.string.mdEditDeveloperNameTitle_text -> {
+//                            viewModel.updateDeveloperName(valueStr)
+//                            makeToastString(UpdateTypes.NAME.getType(), valueStr)
+//                        }
+//                        R.string.mdEditDeveloperMottoTitle_text -> {
+//                            viewModel.updateDeveloperMotto(valueStr)
+//                            makeToastString(UpdateTypes.MOTTO.getType(), valueStr)
+//                        }
+//                        else -> ""
+//                    }
+//                    when (val activity = activity) {
+//                        is MainActivity -> activity.showToast(message)
+//                    }
+//                }
+//                title(titleTextResourceId)
+//                positiveButton(R.string.mdEditDeveloperButton_text)
+//            }
+//        }
+//    }
 }

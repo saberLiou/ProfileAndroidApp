@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="sleepNight"
-            type="saberliou.demo.profile.sleepqualitytracker.SleepNight" />
+            name="night"
+            type="saberliou.demo.profile.SleepNight" />
 
         <variable
             name="onSleepNightClickListener"
@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> onSleepNightClickListener.onSleepNightClicked(sleepNight)}">
+        android:onClick="@{() -> onSleepNightClickListener.onSleepNightClicked(night)}">
 
         <ImageView
             android:id="@+id/ivSleepNightQualityImage"
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:qualityImage="@{sleepNight}"
+            app:qualityImage="@{night}"
             tools:srcCompat="@drawable/ic_sleep_quality_5" />
 
         <!-- item in LinearLayoutManager -->
@@ -70,7 +70,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/ivSleepNightQualityImage"
             app:layout_constraintTop_toBottomOf="@+id/ivSleepNightQualityImage"
-            app:quality="@{sleepNight}"
+            app:quality="@{night}"
             tools:text="@string/five_excellent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

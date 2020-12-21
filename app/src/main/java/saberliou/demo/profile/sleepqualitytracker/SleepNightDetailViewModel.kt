@@ -1,39 +1,38 @@
 package saberliou.demo.profile.sleepqualitytracker
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.*
+import saberliou.demo.profile.data.Result.Success
+import saberliou.demo.profile.data.source.ISleepNightRepository
+import saberliou.demo.profile.util.Event
 
-class SleepNightDetailViewModel(
-    private val nightId: Long = 0L,
-    private val sleepNightDao: SleepNightDao
+class SleepNightDetailViewModel @ViewModelInject constructor(
+    private val sleepNightRepository: ISleepNightRepository
 ) : ViewModel() {
-    val night = liveData {
-        emit(sleepNightDao.get(nightId))
-    }
-
     /**
-     * Variable that tells the fragment whether it should navigate back to [SleepNightsFragment].
-     *
+     * Variable that tells the fragment when should it navigate back to [SleepNightsFragment].
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private val _navigateToSleepNights = MutableLiveData<Boolean?>()
-
-    /**
-     * If this is true, immediately navigate back to the [SleepNightsFragment] and call [onSleepNightsNavigationDone].
-     */
-    val navigateToSleepNights: LiveData<Boolean?>
+    private val _navigateToSleepNights = MutableLiveData<Event<Unit>>()
+    val navigateToSleepNights: LiveData<Event<Unit>>
         get() = _navigateToSleepNights
 
-    /**
-     * Call this immediately after navigating back to [SleepNightsFragment]
-     */
-    fun onSleepNightsNavigationDone() {
-        _navigateToSleepNights.value = null
+    private val _id = MutableLiveData<Long>()
+    val night = _id.switchMap { id ->
+        liveData { emit(sleepNightRepository.getSleepNight(id)) }.map { nightResult ->
+            if (nightResult is Success) {
+                nightResult.data
+            } else {
+                null
+            }
+        }
+    }
+
+    fun initialize(id: Long) {
+        _id.value = id
     }
 
     fun onClose() {
-        _navigateToSleepNights.value = true
+        _navigateToSleepNights.value = Event(Unit)
     }
 }

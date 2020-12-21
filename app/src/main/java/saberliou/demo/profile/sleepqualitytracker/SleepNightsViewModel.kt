@@ -1,100 +1,62 @@
 package saberliou.demo.profile.sleepqualitytracker
 
-import android.app.Application
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import saberliou.demo.profile.SleepNight
+import saberliou.demo.profile.data.Result.Success
+import saberliou.demo.profile.data.source.ISleepNightRepository
+import saberliou.demo.profile.util.Event
 
-class SleepNightsViewModel(
-    application: Application,
-    private val sleepNightDao: SleepNightDao,
-) : AndroidViewModel(application) {
+class SleepNightsViewModel @ViewModelInject constructor(
+    private val sleepNightRepository: ISleepNightRepository
+) : ViewModel() {
     private var tonight = MutableLiveData<SleepNight?>()
-    val nights = sleepNightDao.getAll()
-//    val nightsString = Transformations.map(nights) { nights ->
-//        formatNights(nights, application.resources)
-//    }
+    val nights = sleepNightRepository.observeSleepNights().switchMap { nightsResult ->
+        MutableLiveData<List<SleepNight>>().apply {
+            value = if (nightsResult is Success) nightsResult.data else emptyList()
+        }
+    }
 
-    val isBtnStartTrackingClickable = Transformations.map(tonight) {
+    val isBtnStartTrackingClickable = tonight.map {
         it == null
     }
 
-    val isBtnStopTrackingClickable = Transformations.map(tonight) {
+    val isBtnStopTrackingClickable = tonight.map {
         it != null
     }
 
-    val isBtnClearSleepNightsClickable = Transformations.map(nights) {
-        it?.isNotEmpty()
+    val isBtnClearSleepNightsClickable = nights.map {
+        it.isNotEmpty()
     }
 
     /**
-     * Variable that tells the Fragment to navigate to a specific [SaveSleepNightFragment]
-     *
+     * Variable that tells the Fragment when it should navigate to a specific [SaveSleepNightFragment].
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private val _navigateToSaveSleepNight = MutableLiveData<SleepNight>()
-
-    /**
-     * If this is non-null, immediately navigate to [SaveSleepNightFragment] and call [onSaveSleepNightNavigationDone]
-     */
-    val navigateToSaveSleepNight: LiveData<SleepNight>
+    private val _navigateToSaveSleepNight = MutableLiveData<Event<Long>>()
+    val navigateToSaveSleepNightEntity: LiveData<Event<Long>>
         get() = _navigateToSaveSleepNight
 
     /**
-     * Call this immediately after navigating to [SaveSleepNightFragment]
-     *
-     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
-     */
-    fun onSaveSleepNightNavigationDone() {
-        _navigateToSaveSleepNight.value = null
-    }
-
-    /**
-     * Variable that tells the Fragment to navigate to a specific [SleepNightDetailFragment]
-     *
+     * Variable that tells the Fragment when it should navigate to a specific [SleepNightDetailFragment].
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private val _navigateToSleepNightDetail = MutableLiveData<SleepNight>()
-
-    /**
-     * If this is non-null, immediately navigate to [SleepNightDetailFragment] and call [onSleepNightDetailNavigationDone]
-     */
-    val navigateToSleepNightDetail: LiveData<SleepNight>
+    private val _navigateToSleepNightDetail = MutableLiveData<Event<Long>>()
+    val navigateToSleepNightEntityDetail: LiveData<Event<Long>>
         get() = _navigateToSleepNightDetail
 
-    /**
-     * Call this immediately after navigating to [SleepNightDetailFragment]
-     *
-     * It will clear the navigation request, so if the user rotates their phone it won't navigate twice.
-     */
-    fun onSleepNightDetailNavigationDone() {
-        _navigateToSleepNightDetail.value = null
-    }
-
-    fun onSleepNightClicked(night: SleepNight) {
-        _navigateToSleepNightDetail.value = night
+    fun onSleepNightClicked(id: Long) {
+        _navigateToSleepNightDetail.value = Event(id)
     }
 
     /**
-     * Variable that tells the Fragment to show a SnackBar.
-     *
+     * Variable that tells the Fragment when it should show a SnackBar.
      * This is private because we don't want to expose setting this value to the Fragment.
      */
-    private var _showSnackbar = MutableLiveData<Boolean>()
-
-    /**
-     * If this is true, immediately show a Snackbar and call `doneShowingSnackbar()`.
-     */
-    val showSnackbar: LiveData<Boolean>
+    private var _showSnackbar = MutableLiveData<Event<Unit>>()
+    val showSnackbar: LiveData<Event<Unit>>
         get() = _showSnackbar
-
-    /**
-     * Call this immediately after showing a Snackbar.
-     *
-     * It will clear the showing request, so if the user rotates their phone it won't show a duplicate Snackbar.
-     */
-    fun onSnackbarShown() {
-        _showSnackbar.value = false
-    }
 
     init {
         viewModelScope.launch {
@@ -104,7 +66,7 @@ class SleepNightsViewModel(
 
     fun onStartTracking() {
         viewModelScope.launch {
-            sleepNightDao.insert(SleepNight())
+            sleepNightRepository.createSleepNight(SleepNight())
             setTonight()
         }
     }
@@ -113,25 +75,26 @@ class SleepNightsViewModel(
         viewModelScope.launch {
             val currentNight = tonight.value ?: return@launch
             currentNight.endTime = System.currentTimeMillis()
-            sleepNightDao.update(currentNight)
+            sleepNightRepository.updateSleepNight(currentNight)
 
             // Set state to navigate to the SaveSleepNightFragment.
-            _navigateToSaveSleepNight.value = currentNight
+            _navigateToSaveSleepNight.value = Event(currentNight.id)
         }
     }
 
     fun onClearSleepNights() {
         viewModelScope.launch {
-            sleepNightDao.deleteAll()
+            sleepNightRepository.deleteSleepNights()
             tonight.value = null
 
-            // Set state to true to show a Snackbar.
-            _showSnackbar.value = true
+            // Set state to show a Snackbar.
+            _showSnackbar.value = Event(Unit)
         }
     }
 
     private suspend fun setTonight() {
-        tonight.value = sleepNightDao.getLatest()
+        val latestNightResult = sleepNightRepository.getLatestSleepNight()
+        tonight.value = if (latestNightResult is Success) latestNightResult.data else null
         if (tonight.value?.endTime != tonight.value?.startTime) tonight.value = null
     }
 }

@@ -1,31 +1,30 @@
 package saberliou.demo.profile.home
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import saberliou.demo.profile.GithubUser
+import saberliou.demo.profile.data.Result
+import saberliou.demo.profile.data.source.IGithubRepository
 
-class HomeViewModel : ViewModel() {
-    // Use backing property with read-only LiveData for external and MutableLiveData for internal mutations.
-    private val _name = MutableLiveData<String>()
-    val name: LiveData<String>
-        get() = _name
-
-    private val _motto = MutableLiveData<String>()
-    val motto: LiveData<String>
-        get() = _motto
+class HomeViewModel @ViewModelInject constructor(
+    private val githubRepository: IGithubRepository
+) : ViewModel() {
+    private val _githubUser = MutableLiveData<GithubUser>()
+    val githubUser: LiveData<GithubUser>
+        get() = _githubUser
 
     init {
-        Developer().also {
-            _name.value = it.name
-            _motto.value = it.motto
+        viewModelScope.launch {
+            val githubUserResult = githubRepository.getGithubUser(true)
+            if (githubUserResult is Result.Success) {
+                _githubUser.value = githubUserResult.data
+            } else {
+                _githubUser.value = GithubUser()
+            }
         }
-    }
-
-    fun updateDeveloperName(name: String) {
-        _name.value = name
-    }
-
-    fun updateDeveloperMotto(motto: String) {
-        _motto.value = motto
     }
 }
