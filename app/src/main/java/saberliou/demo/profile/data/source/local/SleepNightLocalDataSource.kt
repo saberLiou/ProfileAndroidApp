@@ -50,16 +50,16 @@ class SleepNightLocalDataSource(
     }
 
     override fun observeSleepNights(): LiveData<Result<List<SleepNight>>> {
-        return sleepNightDao.observeAll().map {
+        return sleepNightDao.observeAllDescending().map {
             Success(it.toDomainModels())
         }
     }
 
-    override suspend fun updateSleepNight(night: SleepNight) {
+    override suspend fun updateSleepNight(night: SleepNight) = withContext(ioDispatcher) {
         sleepNightDao.update(night.toDatabaseEntity())
     }
 
-    override suspend fun deleteSleepNights() {
+    override suspend fun deleteSleepNights() = withContext(ioDispatcher) {
         sleepNightDao.deleteAll()
     }
 }

@@ -17,15 +17,14 @@ import saberliou.demo.profile.getOrAwaitValue
 class GithubUserDaoTest {
     private lateinit var githubUserDao: GithubUserDao
 
+    @get:Rule
+    var appDatabaseRule = AppDatabaseRule {
+        githubUserDao = it.githubUserDao()
+    }
+
     // Temporary solution for runBlockingTest: https://github.com/Kotlin/kotlinx.coroutines/issues/1204.
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
-
-    @get:Rule
-    var appDatabaseRule = AppDatabaseRule {
-//        githubUserDao = it.githubUserDao
-        githubUserDao = it.githubUserDao()
-    }
 
     @Test
     fun createAndGetEntity() = runBlockingTest {
@@ -37,7 +36,7 @@ class GithubUserDaoTest {
         val actual = githubUserDao.getLatest()
 
         // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -50,7 +49,7 @@ class GithubUserDaoTest {
         val actual = githubUserDao.observeLatest().getOrAwaitValue()
 
         // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -64,6 +63,6 @@ class GithubUserDaoTest {
 
         // THEN
         val actual = githubUserDao.getLatest()
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 }

@@ -39,7 +39,7 @@ interface SleepNightDao {
      * @return all observable entities
      */
     @Query("SELECT * FROM ${SleepNightEntity.TABLE_NAME} ORDER BY ${SleepNightEntity.ID} DESC")
-    fun observeAll(): LiveData<List<SleepNightEntity>>
+    fun observeAllDescending(): LiveData<List<SleepNightEntity>>
 
     /**
      * Insert the entity in the database.

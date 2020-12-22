@@ -58,4 +58,24 @@ data class SleepNight(
             endTime = endTime
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SleepNight
+
+        if (quality != other.quality) return false
+        if (startTime != other.startTime) return false
+        if (endTime != other.endTime) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = quality
+        result = 31 * result + startTime.hashCode()
+        result = 31 * result + endTime.hashCode()
+        return result
+    }
 }

@@ -13,6 +13,7 @@ class AppDatabaseRule(val afterAppDatabaseCreated: (AppDatabase) -> Unit) : Test
      */
     override fun starting(description: Description?) {
         super.starting(description)
+        // Using an in-memory database because the information stored here disappears when the process is killed.
         appDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             AppDatabase::class.java

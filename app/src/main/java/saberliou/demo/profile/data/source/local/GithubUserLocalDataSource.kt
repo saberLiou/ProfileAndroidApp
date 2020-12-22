@@ -42,7 +42,7 @@ class GithubUserLocalDataSource(
             Result.Success(it.toDomainModel())
         }
 
-    override suspend fun clearGithubUser() {
+    override suspend fun clearGithubUser() = withContext(ioDispatcher) {
         githubUserDao.deleteAll()
     }
 }

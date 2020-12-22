@@ -5,12 +5,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import saberliou.demo.profile.GithubUser
+import saberliou.demo.profile.MainCoroutineRule
 import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.data.source.GithubUserDataSource.Companion.GITHUB_USER_NOT_FOUND
 import saberliou.demo.profile.getOrAwaitValue
@@ -21,20 +22,21 @@ import saberliou.demo.profile.getOrAwaitValue
 class GithubUserLocalDataSourceTest {
     private lateinit var dataSource: GithubUserLocalDataSource
 
+    // Set the main coroutines dispatcher for unit testing.
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    @get:Rule
+    var appDatabaseRule = AppDatabaseRule {
+        dataSource = GithubUserLocalDataSource(it.githubUserDao(), Dispatchers.Main)
+    }
+
     // Executes each task synchronously using Architecture Components.
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    var appDatabaseRule = AppDatabaseRule {
-//        dataSource = GithubUserLocalDataSource(it.githubUserDao, Dispatchers.Main)
-        dataSource = GithubUserLocalDataSource(it.githubUserDao(), Dispatchers.Main)
-    }
-
-    // runBlocking used here because of https://github.com/Kotlin/kotlinx.coroutines/issues/1204
-    // TODO replace with runBlockingTest once issue is resolved
     @Test
-    fun createAndGetResult() = runBlocking {
+    fun createAndGetResult() = mainCoroutineRule.runBlockingTest {
         // GIVEN
         val expected = Result.Success(GithubUser())
 
@@ -43,11 +45,11 @@ class GithubUserLocalDataSourceTest {
         val actual = dataSource.getGithubUser()
 
         // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun observeResultAfterCreated() = runBlocking {
+    fun observeResultAfterCreated() = mainCoroutineRule.runBlockingTest {
         // GIVEN
         val expected = Result.Success(GithubUser())
 
@@ -56,11 +58,11 @@ class GithubUserLocalDataSourceTest {
         val actual = dataSource.observeGithubUser().getOrAwaitValue()
 
         // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun clear() = runBlocking {
+    fun clearResult() = mainCoroutineRule.runBlockingTest {
         // GIVEN
         val expected = Result.Error(Exception(GITHUB_USER_NOT_FOUND))
         dataSource.setGithubUser(GithubUser())
@@ -70,6 +72,6 @@ class GithubUserLocalDataSourceTest {
 
         // THEN
         val actual = dataSource.getGithubUser()
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 }

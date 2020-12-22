@@ -5,23 +5,20 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert.assertTrue
-import org.junit.FixMethodOrder
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
+import saberliou.demo.profile.getOrAwaitValue
 
 @MediumTest
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class SleepNightDaoTest {
     private lateinit var sleepNightDao: SleepNightDao
 
     @get:Rule
     var appDatabaseRule = AppDatabaseRule {
-//        sleepNightDao = it.sleepNightDao
         sleepNightDao = it.sleepNightDao()
     }
 
@@ -30,29 +27,75 @@ class SleepNightDaoTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    fun test01_createAndGetSleepNightEntity() = runBlockingTest {
+    fun createAndGetSpecificEntity() = runBlockingTest {
+        // GIVEN
+        val expected = SleepNightEntity(id = 1)
+
+        // WHEN
+        sleepNightDao.insert(expected)
+        val actual = sleepNightDao.get(expected.id)
+
+        // THEN
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun createAndGetEntity() = runBlockingTest {
         // GIVEN
         val expected = SleepNightEntity()
 
         // WHEN
         sleepNightDao.insert(expected)
-        val actual = sleepNightDao.get(1)
+        val actual = sleepNightDao.getLatest()
 
         // THEN
-        assertTrue(actual == expected)
+        assertEquals(expected, actual)
     }
 
     @Test
-    fun test02_updateSleepNightEntity() = runBlockingTest {
+    fun observeEntitiesAfterCreated() = runBlockingTest {
+        // GIVEN
+        val expected = arrayListOf(
+            SleepNightEntity(quality = 0),
+            SleepNightEntity(quality = 1),
+            SleepNightEntity(quality = 2)
+        )
+
+        // WHEN
+        expected.reversed().forEach {
+            sleepNightDao.insert(it)
+        }
+        val actual = sleepNightDao.observeAllDescending().getOrAwaitValue()
+
+        // THEN
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun updateEntity() = runBlockingTest {
         // GIVEN
         sleepNightDao.insert(SleepNightEntity())
-        val expected = sleepNightDao.get(1)!!.copy(quality = 0)
+        val expected = sleepNightDao.getLatest()!!.copy(quality = 0)
 
         // WHEN
         sleepNightDao.update(expected)
 
         // THEN
-        val actual = sleepNightDao.get(1)!!
-        assertTrue(expected.id == actual.id && actual == expected)
+        val actual = sleepNightDao.get(expected.id)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun deleteEntity() = runBlockingTest {
+        // GIVEN
+        val expected = null
+        sleepNightDao.insert(SleepNightEntity())
+
+        // WHEN
+        sleepNightDao.deleteAll()
+
+        // THEN
+        val actual = sleepNightDao.getLatest()
+        assertEquals(expected, actual)
     }
 }
