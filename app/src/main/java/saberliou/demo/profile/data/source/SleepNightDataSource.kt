@@ -13,6 +13,7 @@ interface SleepNightDataSource {
     suspend fun getSleepNight(id: Long): Result<SleepNight>
     suspend fun getLatestSleepNight(): Result<SleepNight>
     fun observeSleepNights(): LiveData<Result<List<SleepNight>>>
+    suspend fun refreshSleepNights()
     suspend fun updateSleepNight(night: SleepNight)
     suspend fun deleteSleepNights()
 }

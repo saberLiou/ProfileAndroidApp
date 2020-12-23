@@ -1,6 +1,7 @@
 package saberliou.demo.profile.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -8,6 +9,7 @@ import org.junit.Rule
 import saberliou.demo.profile.GithubUser
 import saberliou.demo.profile.data.source.FakeGithubRepository
 
+@SmallTest
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel

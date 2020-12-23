@@ -51,7 +51,7 @@ class FakeSleepNightRepository @Inject constructor() : ISleepNightRepository {
         if (nights.isSuccess()) {
             val nightsList = (nights as Success).data
             nightsList.indexOfFirst { it.id == night.id }.let {
-                if (it > 0) nightsList.set(it, night)
+                if (it > 0) nightsList[it] = night
             }
             refreshSleepNights()
         }

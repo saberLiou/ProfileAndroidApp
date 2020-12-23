@@ -10,6 +10,7 @@ import saberliou.demo.profile.data.source.GithubUserDataSource
 import saberliou.demo.profile.data.source.IGithubRepository
 import saberliou.demo.profile.data.source.local.AppDatabase
 import saberliou.demo.profile.data.source.local.GithubUserLocalDataSource
+import saberliou.demo.profile.data.source.remote.GithubApiService
 import saberliou.demo.profile.data.source.remote.GithubUserRemoteDataSource
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -26,8 +27,11 @@ object GithubRepositoryModule {
     @RemoteGithubUserDataSource
     @Singleton
     @Provides
-    fun provideGithubUserRemoteDataSource(): GithubUserDataSource {
-        return GithubUserRemoteDataSource()
+    fun provideGithubUserRemoteDataSource(
+        githubApiService: GithubApiService,
+        ioDispatcher: CoroutineDispatcher
+    ): GithubUserDataSource {
+        return GithubUserRemoteDataSource(githubApiService, ioDispatcher)
     }
 
     @LocalGithubUserDataSource

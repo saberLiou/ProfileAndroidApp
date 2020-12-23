@@ -2,7 +2,7 @@ package saberliou.demo.profile.data.source
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import saberliou.demo.profile.SleepNight
 import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.util.wrapEspressoIdlingResource
@@ -19,23 +19,29 @@ interface ISleepNightRepository {
 
 class SleepNightRepository(
     private val localDataSource: SleepNightDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : ISleepNightRepository {
     override suspend fun createSleepNight(night: SleepNight) {
         wrapEspressoIdlingResource {
-            localDataSource.createSleepNight(night)
+            withContext(ioDispatcher) {
+                localDataSource.createSleepNight(night)
+            }
         }
     }
 
     override suspend fun getSleepNight(id: Long): Result<SleepNight> {
         wrapEspressoIdlingResource {
-            return localDataSource.getSleepNight(id)
+            return withContext(ioDispatcher) {
+                return@withContext localDataSource.getSleepNight(id)
+            }
         }
     }
 
     override suspend fun getLatestSleepNight(): Result<SleepNight> {
         wrapEspressoIdlingResource {
-            return localDataSource.getLatestSleepNight()
+            return withContext(ioDispatcher) {
+                return@withContext localDataSource.getLatestSleepNight()
+            }
         }
     }
 
@@ -49,15 +55,20 @@ class SleepNightRepository(
         TODO("Not yet implemented")
     }
 
+
     override suspend fun updateSleepNight(night: SleepNight) {
         wrapEspressoIdlingResource {
-            localDataSource.updateSleepNight(night)
+            withContext(ioDispatcher) {
+                localDataSource.updateSleepNight(night)
+            }
         }
     }
 
     override suspend fun deleteSleepNights() {
         wrapEspressoIdlingResource {
-            localDataSource.deleteSleepNights()
+            withContext(ioDispatcher) {
+                localDataSource.deleteSleepNights()
+            }
         }
     }
 }

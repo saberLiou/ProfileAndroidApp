@@ -18,8 +18,9 @@ class GithubRepositoriesFragment : Fragment() {
 //            GithubRepositoriesViewModel()
 //        }
 //    }
-    private val viewModel: GithubRepositoriesViewModel by viewModels()
+
     private lateinit var binding: FragmentGithubRepositoriesBinding
+    private val viewModel: GithubRepositoriesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

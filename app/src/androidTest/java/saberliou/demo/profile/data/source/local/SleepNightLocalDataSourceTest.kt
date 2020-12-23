@@ -86,8 +86,9 @@ class SleepNightLocalDataSourceTest {
     fun updateResult() = mainCoroutineRule.runBlockingTest {
         // GIVEN
         dataSource.createSleepNight(SleepNight())
-        val expected =
-            Result.Success((dataSource.getLatestSleepNight() as Result.Success).data.copy(quality = 0))
+        val expected = Result.Success(
+            (dataSource.getLatestSleepNight() as Result.Success).data.copy(quality = 0)
+        )
 
         // WHEN
         dataSource.updateSleepNight(expected.data)

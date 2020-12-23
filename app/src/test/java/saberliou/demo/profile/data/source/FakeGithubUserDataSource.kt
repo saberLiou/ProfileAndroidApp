@@ -22,11 +22,11 @@ class FakeGithubUserDataSource : GithubUserDataSource {
         return Error(Exception(GITHUB_USER_NOT_FOUND))
     }
 
+    override fun observeGithubUser(): LiveData<Result<GithubUser>> = observableGithubUser
+
     override suspend fun refreshGithubUser() {
         observableGithubUser.value = getGithubUser()
     }
-
-    override fun observeGithubUser(): LiveData<Result<GithubUser>> = observableGithubUser
 
     override suspend fun clearGithubUser() {
         githubUser = null

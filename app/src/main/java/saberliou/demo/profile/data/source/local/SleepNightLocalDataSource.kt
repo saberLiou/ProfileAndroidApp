@@ -3,7 +3,6 @@ package saberliou.demo.profile.data.source.local
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import saberliou.demo.profile.SleepNight
 import saberliou.demo.profile.SleepNight.Companion.toDatabaseEntity
@@ -17,10 +16,12 @@ import saberliou.demo.profile.data.source.local.SleepNightEntity.Companion.toDom
 
 class SleepNightLocalDataSource(
     private val sleepNightDao: SleepNightDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : SleepNightDataSource {
     override suspend fun createSleepNight(night: SleepNight) {
-        sleepNightDao.insert(night.toDatabaseEntity())
+        withContext(ioDispatcher) {
+            sleepNightDao.insert(night.toDatabaseEntity())
+        }
     }
 
     override suspend fun getSleepNight(id: Long): Result<SleepNight> = withContext(ioDispatcher) {
@@ -55,11 +56,19 @@ class SleepNightLocalDataSource(
         }
     }
 
-    override suspend fun updateSleepNight(night: SleepNight) = withContext(ioDispatcher) {
-        sleepNightDao.update(night.toDatabaseEntity())
+    override suspend fun updateSleepNight(night: SleepNight) {
+        withContext(ioDispatcher) {
+            sleepNightDao.update(night.toDatabaseEntity())
+        }
     }
 
-    override suspend fun deleteSleepNights() = withContext(ioDispatcher) {
-        sleepNightDao.deleteAll()
+    override suspend fun refreshSleepNights() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteSleepNights() {
+        withContext(ioDispatcher) {
+            sleepNightDao.deleteAll()
+        }
     }
 }

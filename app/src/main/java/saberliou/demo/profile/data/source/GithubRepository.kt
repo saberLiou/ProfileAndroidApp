@@ -2,7 +2,7 @@ package saberliou.demo.profile.data.source
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import saberliou.demo.profile.GithubUser
 import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.util.wrapEspressoIdlingResource
@@ -18,25 +18,29 @@ interface IGithubRepository {
 class GithubRepository(
     private val remoteDataSource: GithubUserDataSource,
     private val localDataSource: GithubUserDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : IGithubRepository {
     override suspend fun setGithubUser(githubUser: GithubUser) {
         wrapEspressoIdlingResource {
-            localDataSource.setGithubUser(githubUser)
+            withContext(ioDispatcher) {
+                localDataSource.setGithubUser(githubUser)
+            }
         }
     }
 
     override suspend fun getGithubUser(forceUpdate: Boolean): Result<GithubUser> {
         wrapEspressoIdlingResource {
-            if (forceUpdate) {
-                try {
-                    refreshGithubUser()
-                } catch (e: Exception) {
-                    return Result.Error(e)
+            return withContext(ioDispatcher) {
+                if (forceUpdate) {
+                    try {
+                        refreshGithubUser()
+                    } catch (e: Exception) {
+                        return@withContext Result.Error(e)
+                    }
                 }
-            }
 
-            return localDataSource.getGithubUser()
+                return@withContext localDataSource.getGithubUser()
+            }
         }
     }
 
@@ -48,19 +52,23 @@ class GithubRepository(
 
     override suspend fun refreshGithubUser() {
         wrapEspressoIdlingResource {
-            val remoteGithubUser = remoteDataSource.getGithubUser()
+            withContext(ioDispatcher) {
+                val remoteGithubUser = remoteDataSource.getGithubUser()
 
-            if (remoteGithubUser is Result.Success) {
-                localDataSource.setGithubUser(remoteGithubUser.data.copy(id = 0))
-            } else if (remoteGithubUser is Result.Error) {
-                throw remoteGithubUser.exception
+                if (remoteGithubUser is Result.Success) {
+                    localDataSource.setGithubUser(remoteGithubUser.data.copy(id = 0))
+                } else if (remoteGithubUser is Result.Error) {
+                    throw remoteGithubUser.exception
+                }
             }
         }
     }
 
     override suspend fun clearGithubUser() {
         wrapEspressoIdlingResource {
-            localDataSource.clearGithubUser()
+            withContext(ioDispatcher) {
+                localDataSource.clearGithubUser()
+            }
         }
     }
 }

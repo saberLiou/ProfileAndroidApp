@@ -182,13 +182,15 @@ dependencies {
     androidTestImplementation "io.mockk:mockk-android:1.10.2"
 
     // AndroidX Test - JVM testing to provide the application context for ViewModel.
+    def androidx_test_version = "1.2.0"
     def androidx_test_ext_version = "1.1.1"
     def androidx_arch_core_version = "2.0.0"
-    testImplementation "androidx.test:core-ktx:1.2.0"
+    testImplementation "androidx.test:rules:$androidx_test_version"
+    testImplementation "androidx.test:core-ktx:$androidx_test_version"
     testImplementation "androidx.test.ext:junit:$androidx_test_ext_version"
     testImplementation "org.robolectric:robolectric:4.3.1"
     testImplementation "androidx.arch.core:core-testing:$androidx_arch_core_version"
-    androidTestImplementation "androidx.test:rules:1.2.0"
+    androidTestImplementation "androidx.test:rules:$androidx_test_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_version"
     androidTestImplementation "androidx.arch.core:core-testing:$androidx_arch_core_version"
 

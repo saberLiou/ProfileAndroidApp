@@ -1,6 +1,7 @@
 package saberliou.demo.profile.data.source
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.filters.SmallTest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -14,16 +15,16 @@ import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.data.source.GithubUserDataSource.Companion.GITHUB_USER_NOT_FOUND
 import saberliou.demo.profile.getOrAwaitValue
 
+@SmallTest
 @ExperimentalCoroutinesApi
 class GithubRepositoryTest {
     private val remoteGithubUser = GithubUser(1, "saberLiou", "https://github.com/saberLiou", 6, 6)
     private lateinit var githubUserRemoteDataSource: GithubUserDataSource
     private lateinit var githubUserLocalDataSource: GithubUserDataSource
 
-    private lateinit var githubRepository: GithubRepository
+    private lateinit var repository: GithubRepository
 
     // Set the main coroutines dispatcher for unit testing.
-    @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
@@ -38,7 +39,7 @@ class GithubRepositoryTest {
         }
         githubUserLocalDataSource = FakeGithubUserDataSource()
 
-        githubRepository = GithubRepository(
+        repository = GithubRepository(
             githubUserRemoteDataSource,
             githubUserLocalDataSource,
             Dispatchers.Main
@@ -51,10 +52,23 @@ class GithubRepositoryTest {
         val expected = Result.Success(remoteGithubUser)
 
         // WHEN
-        val actual = githubRepository.getGithubUser(true)
+        val actual = repository.getGithubUser(true)
 
         // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun observeGithubUserAfterSet_inLocalDataSource() = mainCoroutineRule.runBlockingTest {
+        // GIVEN
+        val expected = Result.Success(remoteGithubUser)
+        githubUserLocalDataSource.setGithubUser(expected.data)
+
+        // WHEN
+        val actual = repository.observeGithubUser().getOrAwaitValue()
+
+        // THEN
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -63,24 +77,11 @@ class GithubRepositoryTest {
         val expected = Result.Success(remoteGithubUser)
 
         // WHEN
-        githubRepository.refreshGithubUser()
+        repository.refreshGithubUser()
 
         // THEN
         val actual = githubUserLocalDataSource.getGithubUser()
-        assertEquals(actual, expected)
-    }
-
-    @Test
-    fun observeGithubUser_inLocalDataSource() = mainCoroutineRule.runBlockingTest {
-        // GIVEN
-        val expected = Result.Success(remoteGithubUser)
-        githubUserLocalDataSource.setGithubUser(expected.data)
-
-        // WHEN
-        val actual = githubRepository.observeGithubUser().getOrAwaitValue()
-
-        // THEN
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -90,10 +91,10 @@ class GithubRepositoryTest {
         githubUserLocalDataSource.setGithubUser(remoteGithubUser)
 
         // WHEN
-        githubRepository.clearGithubUser()
+        repository.clearGithubUser()
 
         // THEN
         val actual = githubUserLocalDataSource.getGithubUser()
-        assertEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 }

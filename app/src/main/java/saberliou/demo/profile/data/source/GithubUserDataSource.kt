@@ -11,7 +11,7 @@ interface GithubUserDataSource {
 
     suspend fun setGithubUser(githubUser: GithubUser)
     suspend fun getGithubUser(): Result<GithubUser>
-    suspend fun refreshGithubUser()
     fun observeGithubUser(): LiveData<Result<GithubUser>>
+    suspend fun refreshGithubUser()
     suspend fun clearGithubUser()
 }

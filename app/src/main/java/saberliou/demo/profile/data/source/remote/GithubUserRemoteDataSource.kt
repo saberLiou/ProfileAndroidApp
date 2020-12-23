@@ -2,7 +2,6 @@ package saberliou.demo.profile.data.source.remote
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import saberliou.demo.profile.GithubUser
 import saberliou.demo.profile.data.Result
@@ -10,9 +9,10 @@ import saberliou.demo.profile.data.source.GithubUserDataSource
 import saberliou.demo.profile.data.source.remote.RemoteGithubUser.Companion.toDomainModel
 
 class GithubUserRemoteDataSource(
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val githubApiService: GithubApiService,
+    private val ioDispatcher: CoroutineDispatcher
 ) : GithubUserDataSource {
-    private val githubApiService = RetrofitClient.githubApiService
+//    private val githubApiService = RetrofitClient.githubApiService
 
     override suspend fun setGithubUser(githubUser: GithubUser) {
         TODO("Not yet implemented")
@@ -26,11 +26,11 @@ class GithubUserRemoteDataSource(
         }
     }
 
-    override suspend fun refreshGithubUser() {
+    override fun observeGithubUser(): LiveData<Result<GithubUser>> {
         TODO("Not yet implemented")
     }
 
-    override fun observeGithubUser(): LiveData<Result<GithubUser>> {
+    override suspend fun refreshGithubUser() {
         TODO("Not yet implemented")
     }
 
