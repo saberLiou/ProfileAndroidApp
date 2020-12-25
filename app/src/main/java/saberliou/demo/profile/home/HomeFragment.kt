@@ -6,8 +6,6 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentHomeBinding
@@ -53,10 +51,6 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sharing -> startActivity(getSharingIntent())
-            else -> return NavigationUI.onNavDestinationSelected(
-                item,
-                requireView().findNavController()
-            )
         }
 
         return super.onOptionsItemSelected(item)

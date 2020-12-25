@@ -9,31 +9,92 @@
         android:id="@+id/homeFragment"
         android:name="saberliou.demo.profile.home.HomeFragment"
         android:label="@string/home_actionBarTitle_text"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_githubRepositoriesFragment"
+            app:destination="@id/githubRepositoriesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_todoNotesFragment"
+            app:destination="@id/todoNotesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_sleepNightsFragment"
+            app:destination="@id/sleepNightsFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="saberliou.demo.profile.settings.SettingsFragment"
         android:label="@string/settings_actionBarTitle_text"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settingsFragment_to_githubRepositoriesFragment"
+            app:destination="@id/githubRepositoriesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_todoNotesFragment"
+            app:destination="@id/todoNotesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_sleepNightsFragment"
+            app:destination="@id/sleepNightsFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/githubRepositoriesFragment"
         android:name="saberliou.demo.profile.github.GithubRepositoriesFragment"
         android:label="@string/github_actionBarTitle_text"
-        tools:layout="@layout/fragment_github_repositories" />
+        tools:layout="@layout/fragment_github_repositories">
+
+        <action
+            android:id="@+id/action_githubRepositoriesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_githubRepositoriesFragment_to_todoNotesFragment"
+            app:destination="@id/todoNotesFragment" />
+        <action
+            android:id="@+id/action_githubRepositoriesFragment_to_sleepNightsFragment"
+            app:destination="@id/sleepNightsFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/todoNotesFragment"
         android:name="saberliou.demo.profile.todonotes.TodoNotesFragment"
         android:label="@string/todoNotes_actionBarTitle_text"
-        tools:layout="@layout/fragment_todo_notes" />
+        tools:layout="@layout/fragment_todo_notes">
+
+        <action
+            android:id="@+id/action_todoNotesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_todoNotesFragment_to_githubRepositoriesFragment"
+            app:destination="@id/githubRepositoriesFragment" />
+        <action
+            android:id="@+id/action_todoNotesFragment_to_sleepNightsFragment"
+            app:destination="@id/sleepNightsFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/sleepNightsFragment"
         android:name="saberliou.demo.profile.sleepqualitytracker.SleepNightsFragment"
         android:label="@string/sleepQualityTracker_actionBarTitle_text"
         tools:layout="@layout/fragment_sleep_nights">
+
+        <action
+            android:id="@+id/action_sleepNightsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_sleepNightsFragment_to_githubRepositoriesFragment"
+            app:destination="@id/githubRepositoriesFragment" />
+        <action
+            android:id="@+id/action_sleepNightsFragment_to_todoNotesFragment"
+            app:destination="@id/todoNotesFragment" />
 
         <action
             android:id="@+id/action_sleepNightsFragment_to_saveSleepNightFragment"

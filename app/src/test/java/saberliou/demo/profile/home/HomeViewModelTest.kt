@@ -7,6 +7,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import saberliou.demo.profile.GithubUser
+import saberliou.demo.profile.MainCoroutineRule
 import saberliou.demo.profile.data.source.FakeGithubRepository
 
 @SmallTest
@@ -15,16 +16,16 @@ class HomeViewModelTest {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var githubRepository: FakeGithubRepository
 
-//    @ExperimentalCoroutinesApi
-//    @get:Rule
-//    var mainCoroutineRule = MainCoroutineRule()
+    // Set the main coroutines dispatcher for unit testing.
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     // Executes each task synchronously using Architecture Components.
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
-    fun setUp() = runBlockingTest {
+    fun setUp() = mainCoroutineRule.runBlockingTest {
         val githubUser = GithubUser(1, "saberLiou", "https://github.com/saberLiou", 6, 6)
         githubRepository = FakeGithubRepository().apply { setGithubUser(githubUser) }
         homeViewModel = HomeViewModel(githubRepository)
