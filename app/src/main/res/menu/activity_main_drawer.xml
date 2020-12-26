@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/homeFragment"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="@string/home_actionBarTitle_text" />
+
+    <item
         android:id="@+id/settingsFragment"
         android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/settings_actionBarTitle_text" />

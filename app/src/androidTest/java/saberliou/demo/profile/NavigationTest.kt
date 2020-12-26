@@ -2,6 +2,7 @@ package saberliou.demo.profile
 
 import android.view.Gravity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.navigation.fragment.NavHostFragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -78,7 +79,26 @@ class NavigationTest {
     }
 
     @Test
-    fun test01_navigateToSettingsFragment() {
+    fun test01_fromSettingsFragmentNavigateBackToHomeFragment() {
+        // GIVEN
+        activityScenario.onActivity {
+            (it.supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController.navigate(R.id.settingsFragment)
+        }
+        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
+            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
+            .perform(DrawerActions.open())
+
+        // WHEN
+        Espresso.onView(ViewMatchers.withId(R.id.homeFragment))
+            .perform(ViewActions.click())
+
+        // THEN
+        Espresso.onView(ViewMatchers.withId(R.id.fragmentHome))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun test02_navigateToSettingsFragment() {
         // GIVEN
         Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
             .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
@@ -94,7 +114,7 @@ class NavigationTest {
     }
 
     @Test
-    fun test02_navigateToGithubRepositoriesFragment() {
+    fun test03_navigateToGithubRepositoriesFragment() {
         // GIVEN
         Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
             .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
@@ -110,7 +130,7 @@ class NavigationTest {
     }
 
     @Test
-    fun test03_navigateToTodoNotesFragment() {
+    fun test04_navigateToTodoNotesFragment() {
         // GIVEN
         Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
             .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
@@ -126,7 +146,7 @@ class NavigationTest {
     }
 
     @Test
-    fun test04_navigateToSleepNightsFragment() {
+    fun test05_navigateToSleepNightsFragment() {
         // GIVEN
         Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
             .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
