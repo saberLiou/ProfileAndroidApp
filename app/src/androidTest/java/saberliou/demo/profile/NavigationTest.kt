@@ -1,16 +1,7 @@
 package saberliou.demo.profile
 
-import android.view.Gravity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.navigation.fragment.NavHostFragment
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.contrib.DrawerActions
-import androidx.test.espresso.contrib.DrawerMatchers
-import androidx.test.espresso.contrib.NavigationViewActions.navigateTo
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -25,7 +16,7 @@ import saberliou.demo.profile.data.source.IGithubRepository
 import saberliou.demo.profile.data.source.ISleepNightRepository
 import saberliou.demo.profile.di.GithubRepositoryModule
 import saberliou.demo.profile.di.SleepNightRepositoryModule
-import saberliou.demo.profile.util.DataBindingIdlingResourceRule
+import saberliou.demo.profile.util.*
 import javax.inject.Inject
 
 @LargeTest
@@ -81,83 +72,66 @@ class NavigationTest {
     @Test
     fun test01_fromSettingsFragmentNavigateBackToHomeFragment() {
         // GIVEN
-        activityScenario.onActivity {
-            (it.supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController.navigate(R.id.settingsFragment)
-        }
-        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
-            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
-            .perform(DrawerActions.open())
+        navigateToFragment(activityScenario, R.id.settingsFragment)
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
 
         // WHEN
-        Espresso.onView(ViewMatchers.withId(R.id.homeFragment))
-            .perform(ViewActions.click())
+        clickResource(R.id.homeFragment)
 
         // THEN
-        Espresso.onView(ViewMatchers.withId(R.id.fragmentHome))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        isResourceDisplaying(R.id.fragmentHome)
     }
 
     @Test
     fun test02_navigateToSettingsFragment() {
         // GIVEN
-        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
-            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
-            .perform(DrawerActions.open())
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
 
         // WHEN
-        Espresso.onView(ViewMatchers.withId(R.id.settingsFragment))
-            .perform(ViewActions.click())
+        clickResource(R.id.settingsFragment)
 
         // THEN
-        Espresso.onView(ViewMatchers.withId(R.id.fragmentSettings))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        isResourceDisplaying(R.id.fragmentSettings)
     }
 
     @Test
     fun test03_navigateToGithubRepositoriesFragment() {
         // GIVEN
-        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
-            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
-            .perform(DrawerActions.open())
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
 
         // WHEN
-        Espresso.onView(ViewMatchers.withId(R.id.githubRepositoriesFragment))
-            .perform(ViewActions.click())
+        clickResource(R.id.githubRepositoriesFragment)
 
         // THEN
-        Espresso.onView(ViewMatchers.withId(R.id.fragmentGithubRepositories))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        isResourceDisplaying(R.id.fragmentGithubRepositories)
     }
 
     @Test
     fun test04_navigateToTodoNotesFragment() {
         // GIVEN
-        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
-            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
-            .perform(DrawerActions.open())
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
 
         // WHEN
-        Espresso.onView(ViewMatchers.withId(R.id.todoNotesFragment))
-            .perform(ViewActions.click())
+        clickResource(R.id.todoNotesFragment)
 
         // THEN
-        Espresso.onView(ViewMatchers.withId(R.id.fragmentTodoNotes))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        isResourceDisplaying(R.id.fragmentTodoNotes)
     }
 
     @Test
     fun test05_navigateToSleepNightsFragment() {
         // GIVEN
-        Espresso.onView(ViewMatchers.withId(R.id.drawerLayout))
-            .check(ViewAssertions.matches(DrawerMatchers.isClosed(Gravity.LEFT)))
-            .perform(DrawerActions.open())
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
 
         // WHEN
-        Espresso.onView(ViewMatchers.withId(R.id.navView))
-            .perform(navigateTo(R.id.sleepNightsFragment))
+        clickResource(R.id.sleepNightsFragment)
 
         // THEN
-        Espresso.onView(ViewMatchers.withId(R.id.fragmentSleepNights))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        isResourceDisplaying(R.id.fragmentSleepNights)
     }
 }

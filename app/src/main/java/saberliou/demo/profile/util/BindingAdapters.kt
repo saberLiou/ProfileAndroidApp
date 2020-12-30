@@ -17,6 +17,7 @@ import saberliou.demo.profile.sleepqualitytracker.convertNumericQualityToString
 @BindingAdapter("imageUrl")
 fun ImageView.setImageUrl(imageUrl: String?) {
     imageUrl?.let {
+//        wrapEspressoIdlingResource {
         Glide.with(this.context)
             .load(imageUrl)
             .apply(
@@ -25,6 +26,7 @@ fun ImageView.setImageUrl(imageUrl: String?) {
                     .error(R.drawable.ic_broken_image)
             )
             .into(this)
+//        }
     }
 }
 
