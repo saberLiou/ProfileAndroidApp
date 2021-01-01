@@ -137,7 +137,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
 
     // Retrofit
-    def retrofit_version = "2.9.0"
+    def retrofit_version = "2.7.2"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
@@ -180,6 +180,9 @@ dependencies {
 
     // MockK
     androidTestImplementation "io.mockk:mockk-android:1.10.2"
+
+    // MockWebServer
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.9.0"
 
     // AndroidX Test - JVM testing to provide the application context for ViewModel.
     def androidx_test_version = "1.2.0"

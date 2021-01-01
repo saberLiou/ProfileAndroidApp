@@ -4,6 +4,6 @@ package saberliou.demo.profile.data.source.remote
 //
 //object RetrofitClient {
 //    val githubApiService: GithubApiService by lazy {
-//        retrofitBuilder.baseUrl(GITHUB_API_URL).build().create(GithubApiService::class.java)
+//        retrofitBuilder.baseUrl(GithubApiUrls.BASE_URL).build().create(GithubApiService::class.java)
 //    }
 //}
