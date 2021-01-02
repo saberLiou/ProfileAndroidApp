@@ -17,7 +17,7 @@ class GithubApiServiceTest {
     }
 
     @Test
-    fun getGithubUser() {
+    fun getRemoteGithubUser() {
         // GIVEN
         val responseJsonFile = "saberLiou.json"
         val expected = Gson().fromJson(

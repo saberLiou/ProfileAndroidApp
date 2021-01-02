@@ -8,8 +8,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController
@@ -32,9 +32,9 @@ class MainActivity : AppCompatActivity() {
             R.id.githubRepositoriesFragment,
             R.id.todoNotesFragment,
             R.id.sleepNightsFragment
-        ).setOpenableLayout(drawerLayout).build()
+        ).setOpenableLayout(findViewById(R.id.drawerLayout)).build()
         setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        findViewById<NavigationView>(R.id.navView).setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
