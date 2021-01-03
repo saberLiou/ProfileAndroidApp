@@ -69,4 +69,7 @@
     <string name="hours_length">%d hours on %s</string>
     <string name="seconds_length">%d seconds on %s</string>
 
+    <!-- Contact Me -->
+    <string name="contactMe_actionBarTitle_text">Contact Me</string>
+
 </resources>

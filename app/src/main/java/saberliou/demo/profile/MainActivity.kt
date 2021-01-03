@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
             R.id.settingsFragment,
             R.id.githubRepositoriesFragment,
             R.id.todoNotesFragment,
-            R.id.sleepNightsFragment
+            R.id.sleepNightsFragment,
+            R.id.contactMeFragment
         ).setOpenableLayout(findViewById(R.id.drawerLayout)).build()
         setupActionBarWithNavController(navController, appBarConfiguration)
         findViewById<NavigationView>(R.id.navView).setupWithNavController(navController)

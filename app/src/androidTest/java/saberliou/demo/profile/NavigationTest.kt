@@ -134,4 +134,17 @@ class NavigationTest {
         // THEN
         isResourceDisplaying(R.id.fragmentSleepNights)
     }
+
+    @Test
+    fun test06_navigateToContactMeFragment() {
+        // GIVEN
+        isNavigationDrawerClosed()
+        openNavigationDrawer()
+
+        // WHEN
+        clickResource(R.id.contactMeFragment)
+
+        // THEN
+        isResourceDisplaying(R.id.fragmentContactMe)
+    }
 }

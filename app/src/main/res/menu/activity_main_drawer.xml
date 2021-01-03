@@ -26,4 +26,9 @@
         android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/sleepQualityTracker_actionBarTitle_text" />
 
+    <item
+        android:id="@+id/contactMeFragment"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="@string/contactMe_actionBarTitle_text" />
+
 </menu>
