@@ -8,11 +8,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import saberliou.demo.profile.databinding.ActivityMainBinding
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -21,11 +22,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         navController =
-            (supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment).navController
+            (supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment).navController
         appBarConfiguration = AppBarConfiguration.Builder(
             R.id.homeFragment,
             R.id.settingsFragment,
@@ -33,9 +35,9 @@ class MainActivity : AppCompatActivity() {
             R.id.todoNotesFragment,
             R.id.sleepNightsFragment,
             R.id.contactMeFragment
-        ).setOpenableLayout(findViewById(R.id.drawerLayout)).build()
+        ).setOpenableLayout(binding.drawerLayout).build()
         setupActionBarWithNavController(navController, appBarConfiguration)
-        findViewById<NavigationView>(R.id.navView).setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
