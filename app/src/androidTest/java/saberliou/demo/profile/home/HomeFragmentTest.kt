@@ -11,9 +11,11 @@ import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 import saberliou.demo.profile.GithubUser
 import saberliou.demo.profile.MainActivity
 import saberliou.demo.profile.R
@@ -28,15 +30,19 @@ import javax.inject.Inject
 @LargeTest
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @HiltAndroidTest
 @UninstallModules(
     GithubRepositoryModule::class,
     SleepNightRepositoryModule::class
 )
 class HomeFragmentTest {
-    private val githubUser =
-        GithubUser(1, "saberLiou", "https://avatars1.githubusercontent.com/u/16037726", 6, 6)
+    private val githubUser = GithubUser(
+        1,
+        "saberLiou",
+        "https://avatars1.githubusercontent.com/u/16037726",
+        6,
+        6
+    )
 //    private lateinit var githubRepository: IGithubRepository
 
     @get:Rule
@@ -62,10 +68,11 @@ class HomeFragmentTest {
 //        githubRepository = FakeGithubRepository()
 //        ServiceLocator.githubRepository = githubRepository
 
+        // GIVEN
         hiltRule.inject()
-
         runBlocking { githubRepository.setGithubUser(githubUser) }
 
+        // WHEN
         activityScenario = ActivityScenario.launch(MainActivity::class.java)
         dataBindingIdlingResourceRule.monitorActivity(activityScenario)
     }
@@ -79,6 +86,7 @@ class HomeFragmentTest {
 
     @Test
     fun areComponentsVisibleInFragment() = runBlockingTest {
+        // THEN
         isResourceVisible(R.id.ivGithubUserImage)
         isResourceWithText(R.id.tvGithubUserName, githubUser.name)
         isResourceWithText(

@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.util
 
 import android.graphics.drawable.BitmapDrawable
 import android.view.View

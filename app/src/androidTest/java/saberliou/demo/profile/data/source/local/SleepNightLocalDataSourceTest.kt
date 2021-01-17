@@ -10,11 +10,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import saberliou.demo.profile.MainCoroutineRule
+import saberliou.demo.profile.util.MainCoroutineRule
 import saberliou.demo.profile.SleepNight
 import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.data.source.SleepNightDataSource.Companion.SLEEP_NIGHT_NOT_FOUND
-import saberliou.demo.profile.getOrAwaitValue
+import saberliou.demo.profile.util.getOrAwaitValue
 
 @MediumTest
 @ExperimentalCoroutinesApi

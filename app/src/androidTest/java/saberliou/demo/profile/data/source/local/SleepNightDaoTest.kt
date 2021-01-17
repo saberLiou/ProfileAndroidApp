@@ -9,7 +9,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import saberliou.demo.profile.getOrAwaitValue
+import saberliou.demo.profile.util.getOrAwaitValue
 
 @MediumTest
 @ExperimentalCoroutinesApi

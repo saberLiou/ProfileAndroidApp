@@ -10,10 +10,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import saberliou.demo.profile.GithubUser
-import saberliou.demo.profile.MainCoroutineRule
+import saberliou.demo.profile.util.MainCoroutineRule
 import saberliou.demo.profile.data.Result
 import saberliou.demo.profile.data.source.GithubUserDataSource.Companion.GITHUB_USER_NOT_FOUND
-import saberliou.demo.profile.getOrAwaitValue
+import saberliou.demo.profile.util.getOrAwaitValue
 
 @SmallTest
 @ExperimentalCoroutinesApi

@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.util
 
 import android.os.IBinder
 import android.view.WindowManager
@@ -12,10 +12,9 @@ object ToastMatcher {
             description?.appendText("is toast")
         }
 
+        @Suppress("DEPRECATION")
         override fun matchesSafely(item: Root): Boolean {
-            val type: Int? = item.windowLayoutParams.get().type
-            @Suppress("DEPRECATION")
-            if (type == WindowManager.LayoutParams.TYPE_TOAST) {
+            if (item.windowLayoutParams.get().type == WindowManager.LayoutParams.TYPE_TOAST) {
                 val windowToken: IBinder = item.decorView.windowToken
                 val appToken: IBinder = item.decorView.applicationWindowToken
                 if (windowToken === appToken) {

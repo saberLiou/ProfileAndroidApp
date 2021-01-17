@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.util
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

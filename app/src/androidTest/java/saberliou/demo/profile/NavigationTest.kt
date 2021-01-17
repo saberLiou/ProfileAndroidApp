@@ -52,11 +52,19 @@ class NavigationTest {
     @Before
     fun setUp() {
 //        githubRepository = ServiceLocator.provideGithubRepository(getApplicationContext())
-
         hiltRule.inject()
 
-        val githubUser = GithubUser(1, "saberLiou", "https://github.com/saberLiou", 6, 6)
-        runBlocking { githubRepository.setGithubUser(githubUser) }
+        runBlocking {
+            githubRepository.setGithubUser(
+                GithubUser(
+                    1,
+                    "saberLiou",
+                    "https://avatars1.githubusercontent.com/u/16037726",
+                    6,
+                    6
+                )
+            )
+        }
 
         activityScenario = ActivityScenario.launch(MainActivity::class.java)
         dataBindingIdlingResourceRule.monitorActivity(activityScenario)

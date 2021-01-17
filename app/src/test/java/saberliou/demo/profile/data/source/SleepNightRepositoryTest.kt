@@ -9,10 +9,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import saberliou.demo.profile.MainCoroutineRule
+import saberliou.demo.profile.util.MainCoroutineRule
 import saberliou.demo.profile.SleepNight
 import saberliou.demo.profile.data.Result
-import saberliou.demo.profile.getOrAwaitValue
+import saberliou.demo.profile.util.getOrAwaitValue
 
 @SmallTest
 @ExperimentalCoroutinesApi

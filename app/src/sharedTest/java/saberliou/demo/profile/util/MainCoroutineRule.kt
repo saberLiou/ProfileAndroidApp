@@ -1,4 +1,4 @@
-package saberliou.demo.profile
+package saberliou.demo.profile.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

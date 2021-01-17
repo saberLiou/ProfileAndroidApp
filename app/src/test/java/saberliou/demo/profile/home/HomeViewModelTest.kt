@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import saberliou.demo.profile.GithubUser
-import saberliou.demo.profile.MainCoroutineRule
+import saberliou.demo.profile.util.MainCoroutineRule
 import saberliou.demo.profile.data.source.FakeGithubRepository
 
 @SmallTest
