@@ -1,4 +1,4 @@
-package saberliou.demo.profile.contactme
+package saberliou.demo.profile.todonotes
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -15,7 +15,8 @@ import org.junit.runner.RunWith
 import saberliou.demo.profile.R
 import saberliou.demo.profile.di.GithubRepositoryModule
 import saberliou.demo.profile.di.SleepNightRepositoryModule
-import saberliou.demo.profile.util.*
+import saberliou.demo.profile.util.isResourceWithText
+import saberliou.demo.profile.util.launchFragmentInHiltContainer
 import javax.inject.Inject
 
 @LargeTest
@@ -26,7 +27,7 @@ import javax.inject.Inject
     GithubRepositoryModule::class,
     SleepNightRepositoryModule::class
 )
-class ContactMeFragmentTest {
+class TodoNotesFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
@@ -39,32 +40,15 @@ class ContactMeFragmentTest {
         hiltRule.inject()
 
         // WHEN
-        launchFragmentInHiltContainer<ContactMeFragment>(targetContext)
+        launchFragmentInHiltContainer<TodoNotesFragment>(targetContext)
     }
 
     @Test
     fun areComponentsVisibleInFragment() = runBlockingTest {
         // THEN
         isResourceWithText(
-            R.id.tvContactMeIntroduction,
-            targetContext.resources.getString(R.string.tvContactMeDescription_text)
+            R.id.tvUnderConstructionDescription,
+            targetContext.resources.getString(R.string.tvUnderConstructionDescription_text)
         )
-
-        isResourceVisible(R.id.tilContactMeTitleLabel)
-        isResourceVisible(R.id.tietContactMeTitleText)
-        isResourceWithHint(
-            R.id.tietContactMeTitleText,
-            targetContext.resources.getString(R.string.tilContactMeTitleLabel_hint)
-        )
-
-        isResourceVisible(R.id.tilContactMeDescriptionLabel)
-        isResourceVisible(R.id.tietContactMeDescriptionText)
-        isResourceWithHint(
-            R.id.tietContactMeDescriptionText,
-            targetContext.resources.getString(R.string.tilContactMeDescriptionLabel_hint)
-        )
-
-        isResourceVisible(R.id.btnContactMeSubmit)
-        isResourceClickable(R.id.btnContactMeSubmit)
     }
 }

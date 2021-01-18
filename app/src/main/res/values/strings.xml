@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">saberLiou</string>
-    <string name="pageUnderConstruction_text">This page is under construction…</string>
+    <string name="tvUnderConstructionDescription_text">This page is under construction…</string>
 
     <!-- Home -->
     <string name="home_actionBarTitle_text">Home</string>
