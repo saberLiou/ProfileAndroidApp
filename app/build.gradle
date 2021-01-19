@@ -33,6 +33,7 @@ android {
 
         testInstrumentationRunner "saberliou.demo.profile.di.TestApplicationRunner"
 
+        // Enable using of vector drawables before API level 21 without converting them to PNGs.
         vectorDrawables.useSupportLibrary = true
 
         multiDexEnabled true

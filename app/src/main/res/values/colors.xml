@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#ffffffff</color>
-    <color name="black">#ff000000</color>
-
     <!-- Primary: Light Green 900. -->
     <color name="colorPrimary">#33691e</color>
     <color name="colorPrimaryLight">#629749</color>
     <color name="colorPrimaryDark">#003d00</color>
-    <color name="colorOnPrimary">@color/white</color>
-    <color name="colorOnPrimaryLight">@color/black</color>
-    <color name="colorOnPrimaryDark">@color/white</color>
+    <color name="colorOnPrimary">@android:color/white</color>
+    <color name="colorOnPrimaryLight">@android:color/black</color>
+    <color name="colorOnPrimaryDark">@android:color/white</color>
 
     <!-- Secondary: Brown 600. -->
     <color name="colorSecondary">#6d4c41</color>
     <color name="colorSecondaryLight">#9c786c</color>
     <color name="colorSecondaryDark">#40241a</color>
-    <color name="colorOnSecondary">@color/white</color>
-    <color name="colorOnSecondaryLight">@color/black</color>
-    <color name="colorOnSecondaryDark">@color/white</color>
+    <color name="colorOnSecondary">@android:color/white</color>
+    <color name="colorOnSecondaryLight">@android:color/black</color>
+    <color name="colorOnSecondaryDark">@android:color/white</color>
 </resources>

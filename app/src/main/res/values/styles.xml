@@ -11,11 +11,18 @@
         <item name="fontFamily">@font/opensans_font</item>
         <!-- sets the style for the overflow button -->
         <item name="actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
+
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        </item>
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme" />
 
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight" />
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/colorOnPrimary</item>
+        <item name="android:textColorSecondary">@color/colorOnSecondary</item>
+        <item name="actionMenuTextColor">@color/colorOnPrimary</item>
+    </style>
 
     <!-- This style defines the tint color of the overflow menu button -->
     <style name="actionOverflowButtonStyle" parent="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon">
@@ -28,6 +35,13 @@
         <item name="colorAccent">?attr/colorAccent</item>
         <item name="colorControlHighlight">@color/colorOnSecondary</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- TextView style. -->
+    <style name="Widget.saberLiou.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:minHeight">@dimen/min_text_height</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
     </style>
 
 </resources>
