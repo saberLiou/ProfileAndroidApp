@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.textfield.TextInputLayout
 import saberliou.demo.profile.ApiStatus
 import saberliou.demo.profile.R
 import saberliou.demo.profile.SleepNight
@@ -18,7 +19,7 @@ import saberliou.demo.profile.sleepqualitytracker.convertNumericQualityToString
 fun ImageView.setImageUrl(imageUrl: String?) {
     imageUrl?.let {
 //        wrapEspressoIdlingResource {
-        Glide.with(this.context)
+        Glide.with(context)
             .load(imageUrl)
             .apply(
                 RequestOptions()
@@ -76,6 +77,11 @@ fun TextView.setQuality(night: SleepNight?) {
     night?.let {
         text = convertNumericQualityToString(night.quality, context.resources)
     }
+}
+
+@BindingAdapter("required")
+fun TextInputLayout.setRequired(isFieldRequired: Boolean) {
+    if (isFieldRequired) setOnTextInputChangedListener { setErrorIfEmpty() }
 }
 
 @Suppress("UNCHECKED_CAST")

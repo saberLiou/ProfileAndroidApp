@@ -10,6 +10,7 @@
         <variable
             name="viewModel"
             type="saberliou.demo.profile.contactme.ContactMeViewModel" />
+
     </data>
 
     <ScrollView
@@ -49,18 +50,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_marginEnd="@dimen/half_margin"
-                android:layout_marginBottom="@dimen/half_margin"
                 android:hint="@string/tilContactMeTitleLabel_hint"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@null"
                 app:layout_constraintBottom_toTopOf="@id/tilContactMeDescriptionLabel"
                 app:layout_constraintEnd_toEndOf="@id/tvContactMeIntroduction"
                 app:layout_constraintStart_toEndOf="@id/ivContactMeTitleIcon"
-                app:layout_constraintTop_toBottomOf="@id/tvContactMeIntroduction">
+                app:layout_constraintTop_toBottomOf="@id/tvContactMeIntroduction"
+                app:required="@{true}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietContactMeTitleText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,12 +82,16 @@
                 android:id="@+id/tilContactMeDescriptionLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/half_margin"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin"
                 android:hint="@string/tilContactMeDescriptionLabel_hint"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@null"
                 app:layout_constraintBottom_toTopOf="@id/btnContactMeSubmit"
                 app:layout_constraintEnd_toEndOf="@id/tvContactMeIntroduction"
                 app:layout_constraintStart_toEndOf="@id/ivContactMeDescriptionIcon"
-                app:layout_constraintTop_toBottomOf="@id/tilContactMeTitleLabel">
+                app:layout_constraintTop_toBottomOf="@id/tilContactMeTitleLabel"
+                app:required="@{true}">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tietContactMeDescriptionText"
@@ -99,7 +107,6 @@
                 android:id="@+id/btnContactMeSubmit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin"
                 android:contentDescription="@string/btnContactMeSubmit_contentDescription"
                 android:text="@string/btnContactMeSubmit_text"
                 app:layout_constraintEnd_toEndOf="@id/tilContactMeDescriptionLabel"

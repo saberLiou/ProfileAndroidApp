@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import saberliou.demo.profile.R
 import saberliou.demo.profile.databinding.FragmentContactMeBinding
+import saberliou.demo.profile.util.setErrorIfEmpty
 
 @AndroidEntryPoint
 class ContactMeFragment : Fragment() {
@@ -23,15 +24,22 @@ class ContactMeFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_contact_me, container, false)
         binding.viewModel = viewModel
-//        binding.btnContactMeSubmit.setOnClickListener {
-//            val email = "saberliou@gmail.com"
-//            val intent = Intent(Intent.ACTION_SENDTO)
-//            intent.data = Uri.parse("mailto:")
-//            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
-//            intent.putExtra(Intent.EXTRA_SUBJECT, "Hello World")
-//            intent.putExtra(Intent.EXTRA_TEXT, "test")
-//            startActivity(intent)
-//        }
+        binding.btnContactMeSubmit.setOnClickListener {
+            binding.tilContactMeTitleLabel.setErrorIfEmpty()
+            binding.tilContactMeDescriptionLabel.setErrorIfEmpty()
+//            if (
+//                binding.tietContactMeTitleText.isTextFilled() &&
+//                binding.tietContactMeDescriptionText.isTextFilled()
+//            ) {
+//                val email = "saberliou@gmail.com"
+//                val intent = Intent(Intent.ACTION_SENDTO)
+//                intent.data = Uri.parse("mailto:")
+//                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(email))
+//                intent.putExtra(Intent.EXTRA_SUBJECT, "Hello World")
+//                intent.putExtra(Intent.EXTRA_TEXT, "test")
+//                startActivity(intent)
+//            }
+        }
         return binding.root
     }
 

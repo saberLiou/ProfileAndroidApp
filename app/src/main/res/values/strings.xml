@@ -70,4 +70,7 @@
     <string name="btnContactMeSubmit_text">Submit</string>
     <string name="btnContactMeSubmit_contentDescription">Submit title and description in Contact Me.</string>
 
+    <!-- EditText. -->
+    <string name="error_editText_notFilled">%s cannot be empty.</string>
+
 </resources>
