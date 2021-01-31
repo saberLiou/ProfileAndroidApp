@@ -42,6 +42,13 @@ class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClick
 
     override fun getItemViewType(position: Int) = getItem(position).viewType
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            SleepNightWithHeader.VIEW_TYPE_HEADER -> SleepNightHeaderViewHolder.createFrom(parent)
+            else -> createFrom(parent)
+        }
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is SleepNightItemViewHolder -> {
@@ -50,13 +57,6 @@ class SleepNightAdapter(private val onSleepNightClickListener: OnSleepNightClick
                     onSleepNightClickListener
                 )
             }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            SleepNightWithHeader.VIEW_TYPE_HEADER -> SleepNightHeaderViewHolder.createFrom(parent)
-            else -> createFrom(parent)
         }
     }
 
